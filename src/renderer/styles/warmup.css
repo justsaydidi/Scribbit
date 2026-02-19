@@ -5,22 +5,18 @@
 .warmup-transition {
     position: absolute;
     inset: 0;
-    background: var(--color-bg);
+    background: var(--scribbit-paper);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 100;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s ease;
-}
-
-[data-theme="light"] .warmup-transition {
-    background: #ffffff;
+    transition: opacity 0.6s ease;
 }
 
 [data-theme="dark"] .warmup-transition {
-    background: #1a1a1a;
+    background: #141210;
 }
 
 .warmup-transition--visible {
@@ -29,22 +25,22 @@
 }
 
 .warmup-transition-text {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-primary);
-    animation: warmup-pulse 1.5s ease-in-out infinite;
+    font: var(--type-display-sm);
+    font-style: italic;
+    color: var(--scribbit-amber);
+    animation: warmup-pulse 2s ease-in-out infinite;
 }
 
 @keyframes warmup-pulse {
 
     0%,
     100% {
-        opacity: 0.7;
+        opacity: 0.6;
         transform: scale(0.98);
     }
 
     50% {
-        opacity: 1;
-        transform: scale(1);
+        opacity: 0.9;
+        transform: scale(1.02);
     }
 }
