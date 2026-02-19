@@ -1,0 +1,99 @@
+/* ============================================================
+   Warm-up Offer Styles
+   ============================================================ */
+
+.wo-root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    padding: var(--space-8);
+}
+
+.wo-container {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-6);
+    animation: wo-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes wo-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wo-icon {
+    font-size: 48px;
+    margin-bottom: var(--space-2);
+}
+
+.wo-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    letter-spacing: -0.02em;
+}
+
+.wo-text {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    max-width: 360px;
+}
+
+.wo-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+    width: 100%;
+}
+
+.wo-btn-primary {
+    width: 100%;
+    max-width: 240px;
+    background: var(--color-text-primary);
+    color: var(--color-bg);
+    padding: var(--space-3.5) var(--space-8);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    transition: all var(--transition-fast);
+    border: none;
+    cursor: pointer;
+}
+
+.wo-btn-primary:hover {
+    background: var(--color-text-secondary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.wo-btn-text {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    padding: var(--space-2);
+    transition: color var(--transition-fast);
+}
+
+.wo-btn-text:hover {
+    color: var(--color-text-secondary);
+}

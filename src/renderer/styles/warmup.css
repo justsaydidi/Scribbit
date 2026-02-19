@@ -1,0 +1,50 @@
+/* ============================================================
+   Warm-up Session Styles
+   ============================================================ */
+
+.warmup-transition {
+    position: absolute;
+    inset: 0;
+    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+[data-theme="light"] .warmup-transition {
+    background: #ffffff;
+}
+
+[data-theme="dark"] .warmup-transition {
+    background: #1a1a1a;
+}
+
+.warmup-transition--visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.warmup-transition-text {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    animation: warmup-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes warmup-pulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+        transform: scale(0.98);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

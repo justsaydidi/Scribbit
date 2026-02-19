@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scribbit — Write more. Think better.</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600&family=Lora:ital,wght@0,400;1,400&display=swap');
+
+        :root {
+            --scribbit-black: #0A0A0A;
+            --scribbit-grey-1: #3D3D3D;
+            --scribbit-grey-2: #717171;
+            --scribbit-grey-3: #B8B8B8;
+            --scribbit-grey-4: #F2F2F2;
+            --scribbit-white: #FAFAFA;
+            --scribbit-blue: #1A47D4;
+            --scribbit-blue-hover: #1338B0;
+
+            --max-width: 1100px;
+            --section-padding: 120px 24px;
+        }
+
+        /* Type Scale */
+        --text-hero {
+            font-family: 'Lora', serif;
+            font-size: 72px;
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        --text-h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        --text-h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        --text-body-large {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        --text-body {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.65;
+        }
+
+        --text-small {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.5;
+            letter-spacing: 0.01em;
+        }
+
+        --text-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            line-height: 1.4;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--scribbit-white);
+            color: var(--scribbit-grey-1);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(250, 250, 250, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(184, 184, 184, 0);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 400ms ease, border-bottom 300ms ease;
+        }
+
+        nav.scrolled {
+            border-bottom: 1px solid rgba(184, 184, 184, 0.4);
+        }
+
+        .nav-brand {
+            font-weight: 500;
+            font-size: 16px;
+            color: var(--scribbit-black);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            color: var(--scribbit-grey-2);
+            text-decoration: none;
+            transition: color 180ms ease;
+        }
+
+        .nav-link:hover {
+            color: var(--scribbit-black);
+        }
+
+        .nav-btn {
+            padding: 8px 18px;
+            border: 1px solid var(--scribbit-grey-3);
+            background: transparent;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--scribbit-black);
+            text-decoration: none;
+            transition: all 180ms ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--scribbit-grey-4);
+        }
+
+        /* Sections */
+        section {
+            padding: var(--section-padding);
+        }
+
+        .pill-label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--scribbit-grey-2);
+            background: var(--scribbit-grey-4);
+            border: 1px solid var(--scribbit-grey-3);
+            padding: 6px 14px;
+            border-radius: 100px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: 'Lora', serif;
+            font-size: 72px;
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--scribbit-black);
+            margin-bottom: 24px;
+        }
+
+        h1 em {
+            font-style: italic;
+        }
+
+        h2 {
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--scribbit-black);
+            margin-bottom: 24px;
+        }
+
+        .subheadline {
+            font-size: 19px;
+            line-height: 1.65;
+            color: var(--scribbit-grey-1);
+            max-width: 520px;
+            margin: 0 auto 40px;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 180ms ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--scribbit-blue);
+            color: #FAFAFA;
+        }
+
+        .btn-primary:hover {
+            background: var(--scribbit-blue-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 71, 212, 0.25);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--scribbit-grey-3);
+            color: var(--scribbit-black);
+        }
+
+        .btn-secondary:hover {
+            background: var(--scribbit-grey-4);
+            transform: translateY(-1px);
+        }
+
+        .btn-large {
+            padding: 13px 26px;
+        }
+
+        .meta-note {
+            font-size: 13px;
+            color: var(--scribbit-grey-2);
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 60px;
+            position: relative;
+        }
+
+        .hero-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 600ms ease;
+            transition-delay: 200ms;
+        }
+
+        .hero-content.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--scribbit-grey-3);
+            animation: pulse 1.5s infinite;
+            transition: opacity 300ms ease;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.4;
+                transform: translate(-50%, 0);
+            }
+
+            50% {
+                opacity: 1.0;
+                transform: translate(-50%, 6px);
+            }
+
+            100% {
+                opacity: 0.4;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        /* Problem */
+        .problem-content {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .problem-content p {
+            font-size: 18px;
+            line-height: 1.75;
+            color: var(--scribbit-grey-1);
+            margin-bottom: 24px;
+        }
+
+        /* How it works Cards */
+        .how-works {
+            background: var(--scribbit-grey-4);
+            border-top: 1px solid rgba(184, 184, 184, 0.5);
+            border-bottom: 1px solid rgba(184, 184, 184, 0.5);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .card {
+            background: var(--scribbit-white);
+            border: 1px solid var(--scribbit-grey-3);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: left;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            transition: all 200ms ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .card-num {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            color: var(--scribbit-grey-2);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--scribbit-black);
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            font-size: 15px;
+            line-height: 1.65;
+            color: var(--scribbit-grey-1);
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .feature-card {
+            background: var(--scribbit-white);
+            border: 1px solid var(--scribbit-grey-3);
+            border-radius: 14px;
+            padding: 28px;
+            text-align: left;
+            transition: all 180ms ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--scribbit-grey-2);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--scribbit-black);
+            margin-bottom: 14px;
+        }
+
+        .feature-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--scribbit-black);
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--scribbit-grey-1);
+        }
+
+        /* Pull Quote */
+        .pull-quote {
+            background: var(--scribbit-black);
+            color: var(--scribbit-white);
+            padding: 100px 24px;
+        }
+
+        .quote-text {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 32px;
+            line-height: 1.4;
+            max-width: 640px;
+            margin: 0 auto 20px;
+        }
+
+        .quote-attribution {
+            font-size: 13px;
+            color: var(--scribbit-grey-2);
+        }
+
+        /* Open Source */
+        .os-body {
+            max-width: 560px;
+            margin: 0 auto 32px;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            background: var(--scribbit-grey-4);
+            border-top: 1px solid rgba(184, 184, 184, 0.5);
+        }
+
+        .cta-subtext {
+            font-size: 18px;
+            color: var(--scribbit-grey-1);
+            max-width: 440px;
+            margin: 0 auto 32px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--scribbit-black);
+            padding: 40px 24px;
+            color: var(--scribbit-grey-2);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .footer-brand {
+            color: var(--scribbit-white);
+            font-weight: 500;
+        }
+
+        /* Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 500ms ease, transform 500ms ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Delays */
+        .delay-1 {
+            transition-delay: 80ms;
+        }
+
+        .delay-2 {
+            transition-delay: 160ms;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 56px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            .card-grid,
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            section {
+                padding: 80px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="navbar">
+        <a href="#" class="nav-brand">Scribbit</a>
+        <div class="nav-links">
+            <a href="#github" class="nav-link">GitHub</a>
+            <a href="#download" class="nav-btn">Download</a>
+        </div>
+    </nav>
+
+    <!-- SECTION 1 — HERO -->
+    <section class="hero">
+        <div class="container text-center hero-content" id="hero-content">
+            <span class="pill-label">Open Source · Free to Use</span>
+            <h1>Write more. <br>Think <em>better.</em></h1>
+            <p class="subheadline">A distraction-free writing app with AI prompts, a 30-minute focus timer, and honest
+                feedback — all stored privately on your computer.</p>
+            <div class="button-group">
+                <a href="#download-mac" class="btn btn-primary">Download for Mac</a>
+                <a href="#download-windows" class="btn btn-secondary">Download for Windows</a>
+            </div>
+            <div class="meta-note">Free and open source · Bring your own AI key</div>
+        </div>
+        <div class="scroll-indicator" id="scroll-indicator">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- SECTION 2 — THE PROBLEM -->
+    <section class="problem">
+        <div class="container text-center problem-content">
+            <div class="fade-in-up">
+                <span class="pill-label">The Problem</span>
+                <h2>The blank page is a liar.</h2>
+                <p>You want to write more. You know it helps you think. You open a document, stare at it, then close it
+                    and check something else instead. This isn't a discipline problem. It's a design problem.</p>
+                <p>Every writing app is built for people who already write. Scribbit is built for the moment before that
+                    — when you're blank, distracted, and one friction point away from giving up.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3 — HOW IT WORKS -->
+    <section class="how-works" id="how-it-works">
+        <div class="container text-center">
+            <div class="fade-in-up">
+                <span class="pill-label">How It Works</span>
+                <h2>Three steps. Then just write.</h2>
+            </div>
+            <div class="card-grid">
+                <div class="card fade-in-up">
+                    <div class="card-num">01</div>
+                    <div class="card-title">Pick your session</div>
+                    <div class="card-desc">Choose a prompt based on your interests, respond to something you've read, or
+                        just write freely. The app decides nothing for you — but it always gives you a starting point.
+                    </div>
+                </div>
+                <div class="card fade-in-up delay-1">
+                    <div class="card-num">02</div>
+                    <div class="card-title">Write for 30 minutes</div>
+                    <div class="card-desc">Full screen. No spell-check. No toolbars. No notifications. Just your words
+                        and a quiet timer counting down. The page doesn't judge. It just receives.</div>
+                </div>
+                <div class="card fade-in-up delay-2">
+                    <div class="card-num">03</div>
+                    <div class="card-title">Get honest feedback</div>
+                    <div class="card-desc">When you're done, ask the AI to review your writing. It tells you what's
+                        working, what to develop, and asks one question to push your thinking further. It never touches
+                        your spelling.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4 — FEATURES -->
+    <section class="features">
+        <div class="container text-center">
+            <div class="fade-in-up">
+                <span class="pill-label">Features</span>
+                <h2>Everything you need. Nothing you don't.</h2>
+            </div>
+            <div class="feature-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card fade-in-up">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                    <div class="feature-name">AI Writing Prompts</div>
+                    <div class="feature-desc">Personalised to your interests. Never the same prompt twice. Always a
+                        starting point, never a constraint.</div>
+                </div>
+                <!-- Feature 2 -->
+                <div class="feature-card fade-in-up delay-1">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <div class="feature-name">30-Minute Focus Timer</div>
+                    <div class="feature-desc">Long enough to write something real. Short enough to feel possible. The
+                        timer starts when you're ready.</div>
+                </div>
+                <!-- Feature 3 -->
+                <div class="feature-card fade-in-up">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+                    </svg>
+                    <div class="feature-name">Session Warm-Up</div>
+                    <div class="feature-desc">Two minutes of free writing to clear your head before the main session.
+                        Blank page paralysis doesn't stand a chance.</div>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-card fade-in-up delay-1">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="21" y1="6" x2="3" y2="6" />
+                        <line x1="15" y1="12" x2="3" y2="12" />
+                        <line x1="17" y1="18" x2="3" y2="18" />
+                    </svg>
+                    <div class="feature-name">Writing Pattern Analysis</div>
+                    <div class="feature-desc">After several sessions, see the patterns across all your writing. What you
+                        do well. What you repeat. What to break.</div>
+                </div>
+                <!-- Feature 5 -->
+                <div class="feature-card fade-in-up">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                    <div class="feature-name">Complete Privacy</div>
+                    <div class="feature-desc">Everything lives on your computer. Your writing is never sent to a server,
+                        never stored externally. Total ownership.</div>
+                </div>
+                <!-- Feature 6 -->
+                <div class="feature-card fade-in-up delay-1">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m18 8 4 4-4 4" />
+                        <path d="M22 12H13.8" />
+                        <path d="M10.2 12H2" />
+                        <path d="m6 16-4-4 4-4" />
+                        <path d="m13 18 1.5 1.5L22 12" />
+                        <path d="m13 6 1.5-1.5L22 12" />
+                    </svg>
+                    <div class="feature-name">Choose Your AI</div>
+                    <div class="feature-desc">Bring your own key. Works with Gemini, Claude, OpenAI, or Mistral. Swap
+                        anytime in settings.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5 — PULL QUOTE -->
+    <section class="pull-quote text-center">
+        <div class="container fade-in-up">
+            <div class="quote-text">"The best writing app is the one that gets out of your way."</div>
+            <div class="quote-attribution">Scribbit is built around this idea.</div>
+        </div>
+    </section>
+
+    <!-- SECTION 6 — OPEN SOURCE -->
+    <section class="open-source text-center" id="github">
+        <div class="container">
+            <div class="fade-in-up">
+                <span class="pill-label">Open Source</span>
+                <h2>Built for writers. Open to builders.</h2>
+                <p class="os-body">Scribbit is fully open source. Fork it, customise it, make it yours. The codebase is
+                    clean, documented, and built to be extended. Contributions are welcome.</p>
+                <a href="#github-repo" class="btn btn-secondary btn-large">View on GitHub</a>
+                <div style="margin-top: 16px;" class="meta-note">Supports Google Gemini · Anthropic Claude · OpenAI ·
+                    Mistral AI</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7 — FINAL CTA -->
+    <section class="final-cta text-center" id="download">
+        <div class="container">
+            <div class="fade-in-up">
+                <h2>Ready to write?</h2>
+                <p class="cta-subtext">Download Scribbit for free. No account. No subscription. Just open it and write.
+                </p>
+                <div class="button-group">
+                    <a href="#download-mac" class="btn btn-primary">Download for Mac</a>
+                    <a href="#download-windows" class="btn btn-secondary">Download for Windows</a>
+                </div>
+                <div class="meta-note">Free and open source · Bring your own AI key</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <span class="footer-brand">Scribbit</span>
+                <span>·</span>
+                <span>Open source. Built for writers.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            const indicator = document.getElementById('scroll-indicator');
+
+            if (window.scrollY > 40) {
+                nav.classList.add('scrolled');
+                if (indicator) indicator.style.opacity = '0';
+            } else {
+                nav.classList.remove('scrolled');
+                if (indicator) indicator.style.opacity = '1';
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Hero load animation
+        window.addEventListener('load', () => {
+            document.getElementById('navbar').style.opacity = '1';
+            document.getElementById('hero-content').classList.add('loaded');
+        });
+    </script>
+</body>
+
+</html>

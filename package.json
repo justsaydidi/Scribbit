@@ -1,0 +1,76 @@
+{
+  "name": "scribbit",
+  "version": "1.0.0",
+  "description": "A distraction-free, AI-assisted writing app",
+  "main": "src/main/main.js",
+  "author": "Scribbit",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --inspect",
+    "build": "electron-builder",
+    "build:mac": "electron-builder --mac",
+    "build:win": "electron-builder --win portable",
+    "build:all": "electron-builder --mac --win portable"
+  },
+  "keywords": [],
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.76.0",
+    "@google/generative-ai": "^0.24.1",
+    "@mistralai/mistralai": "^1.14.0",
+    "electron-store": "^11.0.2",
+    "openai": "^6.22.0",
+    "puppeteer-core": "^24.2.0"
+  },
+  "devDependencies": {
+    "electron": "^40.4.1",
+    "electron-builder": "^25.1.8",
+    "sharp": "^0.34.5",
+    "svg-to-png-cli": "^1.2.0"
+  },
+  "build": {
+    "appId": "com.scribbit.app",
+    "productName": "Scribbit",
+    "copyright": "Copyright © 2024 Scribbit",
+    "asar": false,
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "signAndEditExecutable": false
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json",
+      "!**/node_modules/**/*",
+      "node_modules/@anthropic-ai/sdk/**/*",
+      "node_modules/@google/generative-ai/**/*",
+      "node_modules/@mistralai/mistralai/**/*",
+      "node_modules/openai/**/*",
+      "node_modules/electron-store/**/*",
+      "!**/*.md",
+      "!**/*.map"
+    ],
+    "directories": {
+      "output": "dist"
+    }
+  }
+}

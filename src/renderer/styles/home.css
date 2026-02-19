@@ -1,0 +1,197 @@
+/* ============================================================
+   Home Screen Styles
+   ============================================================ */
+
+.home-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    padding: var(--space-12);
+}
+
+.home-card {
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+    animation: home-fade-in 0.4s ease both;
+}
+
+@keyframes home-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.home-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.home-greeting {
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.home-encouragement {
+    font-size: var(--font-size-md);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    max-width: 560px;
+}
+
+.home-habit {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    margin-top: var(--space-4);
+    background: var(--color-bg-secondary);
+    width: fit-content;
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+}
+
+.home-habit-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-habit-val {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+}
+
+.home-habit-lab {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
+}
+
+.home-habit-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--color-border);
+}
+
+.home-section-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.home-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-5);
+}
+
+.home-session-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1.5px solid var(--color-border);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    cursor: pointer;
+    transition:
+        transform var(--transition-normal),
+        box-shadow var(--transition-normal),
+        border-color var(--transition-normal);
+    text-align: left;
+}
+
+.home-session-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-text-secondary);
+    box-shadow: var(--shadow-md);
+}
+
+.home-session-card:focus-visible {
+    outline: 2px solid var(--color-text-primary);
+    outline-offset: 3px;
+}
+
+.home-session-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.home-session-sub {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+}
+
+.home-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-8);
+}
+
+.home-link {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+}
+
+.home-link:hover {
+    color: var(--color-text-secondary);
+}
+
+.home-settings {
+    font-size: 18px;
+    color: var(--color-text-muted);
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    transition:
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        background var(--transition-fast);
+}
+
+.home-settings:hover {
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+    background: var(--color-bg-secondary);
+}
+
+@media (max-width: 900px) {
+    .home-wrapper {
+        padding: var(--space-8);
+    }
+
+    .home-card {
+        gap: var(--space-8);
+    }
+
+    .home-cards {
+        grid-template-columns: 1fr;
+    }
+}

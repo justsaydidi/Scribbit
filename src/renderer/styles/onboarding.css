@@ -1,0 +1,270 @@
+/* ============================================================
+   Onboarding Screen Styles
+   ============================================================ */
+
+/* ── Layout ──────────────────────────────────────────────────── */
+.ob-wrapper {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background: var(--color-bg);
+    padding: var(--space-8);
+    overflow-y: auto;
+}
+
+.ob-card {
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    animation: ob-fade-in 0.35s ease both;
+}
+
+@keyframes ob-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Progress dots ───────────────────────────────────────────── */
+.ob-progress {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+}
+
+.ob-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--color-border);
+    transition: all var(--transition-normal);
+}
+
+.ob-dot--active {
+    width: 20px;
+    background: var(--color-text-primary);
+}
+
+.ob-dot--done {
+    background: var(--color-text-secondary);
+}
+
+/* ── Body ────────────────────────────────────────────────────── */
+.ob-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+/* ── Typography ──────────────────────────────────────────────── */
+.ob-eyebrow {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.ob-heading {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-primary);
+    letter-spacing: -0.02em;
+}
+
+.ob-sub {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-top: calc(-1 * var(--space-3));
+}
+
+.ob-label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+}
+
+/* ── Input ───────────────────────────────────────────────────── */
+.ob-input {
+    width: 100%;
+    padding: var(--space-4) var(--space-5);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-primary);
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    font-family: var(--font-family);
+}
+
+.ob-input::placeholder {
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-light);
+}
+
+.ob-input:focus {
+    border-color: var(--color-text-primary);
+    box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.06);
+}
+
+.ob-input--error {
+    border-color: var(--color-error) !important;
+    animation: ob-shake 0.3s ease;
+}
+
+@keyframes ob-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-6px);
+    }
+
+    75% {
+        transform: translateX(6px);
+    }
+}
+
+/* ── Textarea ────────────────────────────────────────────────── */
+.ob-textarea {
+    width: 100%;
+    padding: var(--space-4) var(--space-5);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-primary);
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    outline: none;
+    resize: vertical;
+    line-height: var(--line-height-relaxed);
+    font-family: var(--font-family);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.ob-textarea::placeholder {
+    color: var(--color-text-muted);
+}
+
+.ob-textarea:focus {
+    border-color: var(--color-text-primary);
+    box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.06);
+}
+
+/* ── Tags ────────────────────────────────────────────────────── */
+.ob-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.ob-tag {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    font-family: var(--font-family);
+    color: var(--color-text-secondary);
+    background: var(--color-bg-secondary);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+    user-select: none;
+}
+
+.ob-tag:hover {
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-text-secondary);
+    transform: translateY(-1px);
+}
+
+.ob-tag--selected {
+    background: var(--color-text-primary);
+    color: var(--color-bg);
+    border-color: var(--color-text-primary);
+}
+
+.ob-tag--selected:hover {
+    background: var(--color-text-secondary);
+    border-color: var(--color-text-secondary);
+}
+
+/* ── Actions ─────────────────────────────────────────────────── */
+.ob-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    padding-top: var(--space-3);
+}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.ob-btn {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    font-family: var(--font-family);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    border: none;
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+    letter-spacing: 0.01em;
+}
+
+.ob-btn--primary {
+    background: var(--color-text-primary);
+    color: var(--color-bg);
+}
+
+.ob-btn--primary:hover {
+    background: var(--color-text-secondary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.ob-btn--primary:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.ob-btn--primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.ob-btn--ghost {
+    background: transparent;
+    color: var(--color-text-muted);
+    border: 1.5px solid var(--color-border);
+}
+
+.ob-btn--ghost:hover {
+    color: var(--color-text-secondary);
+    border-color: var(--color-text-secondary);
+}

@@ -1,0 +1,158 @@
+/* ============================================================
+   Prompt Setup Screen Styles
+   ============================================================ */
+
+.psu-root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    padding: var(--space-8);
+}
+
+.psu-container {
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-10);
+    animation: psu-fade-in 0.5s ease both;
+}
+
+@keyframes psu-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Loading State ───────────────────────────────────────────── */
+.psu-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+}
+
+.psu-loading-text {
+    font-size: var(--font-size-md);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+}
+
+.psu-pulse {
+    width: 12px;
+    height: 12px;
+    background: var(--color-text-muted);
+    border-radius: var(--radius-full);
+    animation: psu-pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes psu-pulse-dot {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
+
+/* ── Prompt View ─────────────────────────────────────────────── */
+.psu-prompt-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-12);
+}
+
+.psu-prompt-box {
+    position: relative;
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.psu-prompt-text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(24px, 4vw, 32px);
+    line-height: 1.4;
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-regular);
+}
+
+.psu-bookmark-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: all var(--transition-fast);
+    padding: 8px;
+    border-radius: var(--radius-full);
+}
+
+.psu-bookmark-btn:hover {
+    opacity: 0.8;
+    background: var(--color-bg-secondary);
+}
+
+.psu-bookmark-btn--active {
+    opacity: 1;
+    color: var(--color-accent);
+}
+
+.psu-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+}
+
+.psu-btn-primary {
+    background: var(--color-text-primary);
+    color: var(--color-bg);
+    padding: var(--space-4) var(--space-12);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    transition: all var(--transition-fast);
+}
+
+.psu-btn-primary:hover {
+    background: var(--color-text-secondary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.psu-btn-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: transparent;
+}
+
+.psu-btn-text:hover {
+    color: var(--color-text-secondary);
+    text-decoration-color: var(--color-text-muted);
+}
