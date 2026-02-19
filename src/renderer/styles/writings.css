@@ -4,8 +4,9 @@
 
 .writings-root {
     min-height: 100vh;
-    padding: 32px 24px;
-    background: var(--color-bg-primary);
+    padding: 64px 32px;
+    background: var(--scribbit-paper);
+    color: var(--scribbit-ink);
 }
 
 .writings-container {
@@ -25,48 +26,44 @@
     background: none;
     border: none;
     font-size: 24px;
-    color: var(--color-text-secondary);
+    color: var(--scribbit-grey-2);
     cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 6px;
-    transition: background 0.15s ease, color 0.15s ease;
     line-height: 1;
+    transition: color 150ms ease;
 }
 
 .writings-back-btn:hover {
-    background: var(--color-bg-secondary);
-    color: var(--color-text-primary);
+    color: var(--scribbit-ink);
 }
 
 .writings-title {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
+    font: var(--type-display-sm);
+    color: var(--scribbit-ink);
     margin: 0;
 }
 
 /* Search */
 .writings-search {
     position: relative;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
 }
 
 .writings-search-input {
     width: 100%;
-    padding: 12px 40px 12px 16px;
-    font-size: var(--font-size-base);
-    font-family: var(--font-family);
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    color: var(--color-text-primary);
+    padding: 13px 16px;
+    font: var(--type-body);
+    font-size: 15px;
+    background: var(--scribbit-paper);
+    border: 1px solid var(--scribbit-grey-3);
+    border-radius: 10px;
+    color: var(--scribbit-ink);
     outline: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: var(--transition-normal);
 }
 
 .writings-search-input:focus {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    border-color: var(--scribbit-grey-1);
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.06);
 }
 
 .writings-export-btn {
@@ -88,24 +85,26 @@
 }
 
 .writings-card {
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    background: var(--scribbit-paper);
+    border: 1px solid var(--scribbit-grey-3);
+    border-radius: 14px;
     padding: 0;
     /* Changed to allow grid-like layout */
     cursor: pointer;
-    transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+    transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
 .writings-card--selected {
-    border-color: var(--color-accent);
-    background: rgba(99, 102, 241, 0.03);
+    border-color: var(--scribbit-ink);
+    background: var(--scribbit-grey-4);
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.06);
 }
 
 .writings-card-checkbox {
-    padding: 20px 10px 20px 20px;
+    padding: 24px 12px 24px 24px;
     display: flex;
     align-items: flex-start;
 }
@@ -117,7 +116,7 @@
 }
 
 .writings-card-main {
-    padding: 20px 20px 20px 0;
+    padding: 24px 24px 24px 0;
     flex: 1;
 }
 
@@ -195,29 +194,28 @@
 /* Tabs */
 .writings-tabs {
     display: flex;
-    gap: 24px;
-    margin-bottom: 24px;
-    border-bottom: 1px solid var(--color-border);
+    gap: 32px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--scribbit-grey-3);
 }
 
 .writings-tab {
     background: none;
     border: none;
-    padding: 8px 4px 12px;
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-muted);
+    padding: 8px 0 16px;
+    font: var(--type-label);
+    color: var(--scribbit-grey-3);
     cursor: pointer;
     position: relative;
-    transition: color 0.15s ease;
+    transition: color 150ms ease;
 }
 
 .writings-tab:hover {
-    color: var(--color-text-primary);
+    color: var(--scribbit-grey-2);
 }
 
 .writings-tab--active {
-    color: var(--color-text-primary);
+    color: var(--scribbit-ink);
 }
 
 .writings-tab--active::after {
@@ -227,7 +225,7 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: var(--color-accent);
+    background: var(--scribbit-ink);
 }
 
 /* Session Cards Grid */
@@ -237,9 +235,9 @@
 }
 
 .writings-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border-color: var(--color-accent);
     transform: translateY(-2px);
+    border-color: var(--scribbit-grey-2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .writings-card--prompt {
@@ -260,30 +258,29 @@
 }
 
 .writings-card-date {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    font-weight: var(--font-weight-medium);
+    font: var(--type-label);
+    color: var(--scribbit-grey-3);
 }
 
 .writings-card-reviewed {
     font-size: 11px;
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-accent);
-    background: rgba(99, 102, 241, 0.1);
-    padding: 3px 8px;
-    border-radius: 12px;
+    font-weight: 500;
+    color: var(--scribbit-amber);
+    background: rgba(196, 135, 58, 0.08);
+    padding: 3px 10px;
+    border-radius: 100px;
 }
 
 .writings-card-type {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
-    margin-bottom: 8px;
+    font: var(--type-heading);
+    color: var(--scribbit-ink);
+    margin-bottom: 6px;
 }
 
 .writings-card-preview {
-    font-size: var(--font-size-base);
-    color: var(--color-text-secondary);
+    font: var(--type-body);
+    color: var(--scribbit-grey-2);
+    font-weight: 300;
     line-height: 1.5;
     margin-bottom: 12px;
     overflow: hidden;
@@ -298,7 +295,7 @@
     -webkit-line-clamp: initial;
     line-clamp: initial;
     font-style: italic;
-    color: var(--color-text-primary);
+    color: var(--scribbit-ink);
 }
 
 .writings-card-footer {
@@ -346,27 +343,27 @@
 }
 
 .writings-card-count {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    font-weight: var(--font-weight-medium);
+    font: var(--type-label);
+    color: var(--scribbit-grey-3);
 }
 
 /* Detail View */
 .writings-detail {
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: 24px;
+    background: var(--scribbit-paper);
+    border: 1px solid var(--scribbit-grey-3);
+    border-radius: 14px;
+    padding: 40px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
 }
 
 .writings-detail-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 16px;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     padding-bottom: 16px;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--scribbit-grey-3);
 }
 
 .writings-detail-date {
@@ -376,12 +373,11 @@
 }
 
 .writings-detail-type {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
-    background: var(--color-bg-tertiary);
-    padding: 4px 10px;
-    border-radius: 4px;
+    font: var(--type-heading);
+    color: var(--scribbit-ink);
+    background: var(--scribbit-grey-4);
+    padding: 6px 12px;
+    border-radius: 6px;
 }
 
 .writings-detail-count {
@@ -399,22 +395,21 @@
 }
 
 .writings-detail-label {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
+    font: var(--type-label);
+    color: var(--scribbit-grey-3);
+    margin-bottom: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--color-text-muted);
-    margin-bottom: 8px;
 }
 
 .writings-detail-prompt {
-    font-size: var(--font-size-base);
-    color: var(--color-text-secondary);
+    font: var(--type-body);
     font-style: italic;
-    padding: 12px;
-    background: var(--color-bg-tertiary);
-    border-radius: var(--radius-md);
-    border-left: 3px solid var(--color-accent);
+    color: var(--scribbit-grey-2);
+    padding: 20px;
+    background: var(--scribbit-grey-4);
+    border-radius: 10px;
+    border-left: 2px solid var(--scribbit-amber);
+    margin-bottom: 32px;
 }
 
 .writings-detail-reading {
@@ -429,17 +424,18 @@
 }
 
 .writings-detail-text {
-    font-size: var(--font-size-base);
-    color: var(--color-text-primary);
+    font-family: Georgia, serif;
+    font-size: 19px;
     line-height: 1.8;
+    color: var(--scribbit-ink);
     white-space: pre-wrap;
-    font-family: var(--font-family);
+    margin-bottom: 32px;
 }
 
 .writings-detail-feedback {
-    background: var(--color-bg-tertiary);
-    border-radius: var(--radius-md);
-    padding: 16px;
+    background: var(--scribbit-grey-4);
+    border-radius: 10px;
+    padding: 24px;
 }
 
 /* Feedback Items */
@@ -452,16 +448,17 @@
 }
 
 .writings-feedback-title {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-accent);
-    margin-bottom: 4px;
+    font: var(--type-heading);
+    color: var(--scribbit-ink);
+    margin-bottom: 6px;
 }
 
 .writings-feedback-content {
-    font-size: var(--font-size-base);
-    color: var(--color-text-secondary);
+    font: var(--type-body);
+    font-weight: 300;
+    color: var(--scribbit-grey-2);
     line-height: 1.6;
+    margin-bottom: 16px;
 }
 
 /* Writing Patterns Section */
@@ -471,25 +468,25 @@
 
 .writings-patterns-btn {
     width: 100%;
-    padding: 16px 20px;
-    background: linear-gradient(135deg, var(--color-accent) 0%, #818cf8 100%);
-    color: white;
+    padding: 20px;
+    background: var(--scribbit-ink);
+    color: var(--scribbit-paper);
     border: none;
-    border-radius: var(--radius-lg);
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-semibold);
+    border-radius: 14px;
+    font-family: var(--font-body);
+    font-weight: 500;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    gap: 12px;
+    transition: var(--transition-normal);
 }
 
 .writings-patterns-btn:hover {
+    background: #2A2622;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .writings-patterns-btn:active {
@@ -649,23 +646,19 @@
 /* Detail View Actions */
 .writings-detail-actions {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     justify-content: center;
-    margin-top: 32px;
-    padding-top: 32px;
-    border-top: 1px solid var(--color-border);
+    margin-top: 40px;
 }
 
 .writings-detail-btn {
-    padding: 12px 24px;
-    background: var(--color-bg-secondary);
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+    padding: 14px 28px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: var(--transition-normal);
 }
 
 .writings-detail-btn:hover {
@@ -674,20 +667,19 @@
 }
 
 .writings-detail-btn--primary {
-    background: var(--color-accent);
-    color: white;
-    border-color: var(--color-accent);
+    background: var(--scribbit-ink);
+    color: var(--scribbit-paper);
+    border: none;
 }
 
 .writings-detail-btn--primary:hover {
-    background: var(--color-accent-hover);
-    border-color: var(--color-accent-hover);
+    background: #2A2622;
 }
 
 /* Responsive */
 @media (max-width: 600px) {
     .writings-root {
-        padding: 20px 16px;
+        padding: 32px 16px;
     }
 
     .writings-detail-meta {
