@@ -7,6 +7,10 @@ const ai = require('./ai');
 
 let mainWindow;
 
+const cacheDir = path.join(app.getPath('userData'), 'Cache');
+app.commandLine.appendSwitch('disk-cache-dir', cacheDir);
+app.commandLine.appendSwitch('disable-gpu-shader-disk-cache');
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,

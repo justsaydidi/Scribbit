@@ -7,9 +7,20 @@ dist
 .env.local
 *.env
 
-# Local database (Scribbit)
+# API keys and secrets
+*apikey*
+*api-key*
+*api_key*
+credentials*.json
+secrets*.json
+*.key
+*.pem
+
+# Local database files
 scribbit-db.json
 inkwell-db.json
+scribbit-db*.json
+inkwell-db*.json
 
 # Development
 *.log

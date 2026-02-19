@@ -2,6 +2,8 @@
 
 Scribbit is an open source desktop writing app that helps you write more by removing every excuse not to. Full-screen focus mode, AI-generated prompts based on your interests, a 30-minute writing timer, and post-session AI coaching — all stored locally on your machine.
 
+Website: https://justsaydidi.github.io/Scribbit/
+
 ## Supported AI Providers
 Scribbit works with any of these providers — bring your own key:
 - **Google Gemini** (default — has a free tier, recommended for most users)
