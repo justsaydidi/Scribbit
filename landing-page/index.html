@@ -126,6 +126,29 @@
             border-bottom: 1px solid rgba(184, 184, 184, 0.4);
         }
 
+        .supports-bar {
+            background: var(--scribbit-grey-4);
+            border-top: 1px solid var(--scribbit-grey-3);
+            border-bottom: 1px solid var(--scribbit-grey-3);
+            padding: 32px 0;
+        }
+
+        .supports-content {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--scribbit-grey-2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .supports-content .divider {
+            color: var(--scribbit-grey-3);
+        }
+
         .nav-brand {
             font-weight: 500;
             font-size: 16px;
@@ -537,8 +560,8 @@
     <nav id="navbar">
         <a href="#" class="nav-brand">Scribbit</a>
         <div class="nav-links">
-            <a href="#github" class="nav-link">GitHub</a>
-            <a href="#download" class="nav-btn">Download</a>
+            <a href="https://github.com/justsaydidi/Scribbit" class="nav-link">GitHub</a>
+            <a href="https://github.com/justsaydidi/Scribbit/releases" class="nav-btn">Download</a>
         </div>
     </nav>
 
@@ -550,8 +573,9 @@
             <p class="subheadline">A distraction-free writing app with AI prompts, a 30-minute focus timer, and honest
                 feedback — all stored privately on your computer.</p>
             <div class="button-group">
-                <a href="#download-mac" class="btn btn-primary">Download for Mac</a>
-                <a href="#download-windows" class="btn btn-secondary">Download for Windows</a>
+                <a href="https://github.com/justsaydidi/Scribbit/releases" class="btn btn-primary">Download for Mac</a>
+                <a href="https://github.com/justsaydidi/Scribbit/releases" class="btn btn-secondary">Download for
+                    Windows</a>
             </div>
             <div class="meta-note">Free and open source · Bring your own AI key</div>
         </div>
@@ -690,6 +714,17 @@
         </div>
     </section>
 
+    <!-- SECTION — SUPPORTS -->
+    <section class="supports-bar text-center">
+        <div class="container fade-in-up">
+            <span class="pill-label" style="margin-bottom: 16px;">Works With</span>
+            <div class="supports-content">
+                Google Gemini <span class="divider">·</span> Anthropic Claude <span class="divider">·</span> OpenAI
+                <span class="divider">·</span> Mistral AI
+            </div>
+        </div>
+    </section>
+
     <!-- SECTION 5 — PULL QUOTE -->
     <section class="pull-quote text-center">
         <div class="container fade-in-up">
@@ -704,9 +739,10 @@
             <div class="fade-in-up">
                 <span class="pill-label">Open Source</span>
                 <h2>Built for writers. Open to builders.</h2>
-                <p class="os-body">Scribbit is fully open source. Fork it, customise it, make it yours. The codebase is
+                <p class="os-body">Scribbit is fully open source. Fork it, customise it, and make it yours. The codebase
+                    is
                     clean, documented, and built to be extended. Contributions are welcome.</p>
-                <a href="#github-repo" class="btn btn-secondary btn-large">View on GitHub</a>
+                <a href="https://github.com/justsaydidi/Scribbit" class="btn btn-secondary btn-large">View on GitHub</a>
                 <div style="margin-top: 16px;" class="meta-note">Supports Google Gemini · Anthropic Claude · OpenAI ·
                     Mistral AI</div>
             </div>
@@ -721,8 +757,10 @@
                 <p class="cta-subtext">Download Scribbit for free. No account. No subscription. Just open it and write.
                 </p>
                 <div class="button-group">
-                    <a href="#download-mac" class="btn btn-primary">Download for Mac</a>
-                    <a href="#download-windows" class="btn btn-secondary">Download for Windows</a>
+                    <a href="https://github.com/justsaydidi/Scribbit/releases" class="btn btn-primary">Download for
+                        Mac</a>
+                    <a href="https://github.com/justsaydidi/Scribbit/releases" class="btn btn-secondary">Download for
+                        Windows</a>
                 </div>
                 <div class="meta-note">Free and open source · Bring your own AI key</div>
             </div>
