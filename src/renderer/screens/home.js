@@ -11,10 +11,13 @@ const ENCOURAGEMENTS = [
     'No pressure. No perfection. Just write.',
 ];
 
-function getGreeting(name) {
+function getGreetingParts(name) {
     const hour = new Date().getHours();
     const time = hour < 12 ? 'morning' : hour < 18 ? 'afternoon' : 'evening';
-    return `Good ${time}, ${name || 'there'}`;
+    return {
+        prefix: `Good ${time}, `,
+        name: name || 'there'
+    };
 }
 
 async function getHabitData() {
@@ -66,11 +69,16 @@ async function pickEncouragement() {
     return ENCOURAGEMENTS[nextIndex];
 }
 
-function buildCard(label, sublabel, type) {
+function buildCard(label, sublabel, type, iconPath, delay) {
     const card = document.createElement('button');
     card.className = 'home-session-card';
     card.type = 'button';
     card.dataset.session = type;
+    card.style.animationDelay = `${delay}ms`;
+
+    const icon = document.createElement('div');
+    icon.className = 'home-session-icon';
+    icon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${iconPath}</svg>`;
 
     const title = document.createElement('div');
     title.className = 'home-session-title';
@@ -80,8 +88,14 @@ function buildCard(label, sublabel, type) {
     sub.className = 'home-session-sub';
     sub.textContent = sublabel;
 
+    const arrow = document.createElement('div');
+    arrow.className = 'home-session-arrow';
+    arrow.textContent = '→';
+
+    card.appendChild(icon);
     card.appendChild(title);
     card.appendChild(sub);
+    card.appendChild(arrow);
     return card;
 }
 
@@ -89,14 +103,19 @@ async function render(container) {
     const profile = (await window.scribbit.db.get('profile')) || {};
     const encouragement = await pickEncouragement();
     const habit = await getHabitData();
+    const greeting = getGreetingParts(profile.name);
 
     container.innerHTML = `
     <div class="home-wrapper">
       <div class="home-card">
         <div class="home-header">
-          <div class="home-greeting">${escHtml(getGreeting(profile.name))}</div>
+          <div class="home-greeting">
+            ${escHtml(greeting.prefix)}<span class="home-name-italic">${escHtml(greeting.name)}</span>
+          </div>
           <div class="home-encouragement">${escHtml(encouragement)}</div>
           
+          <div class="home-divider-rule"></div>
+
           <div class="home-habit" id="home-habit">
             <div class="home-habit-item">
               <span class="home-habit-val">${habit.streak}</span>
@@ -127,9 +146,9 @@ async function render(container) {
 
     const cardsEl = container.querySelector('#home-cards');
     const cards = [
-        buildCard('Prompted Writing', 'Get a writing prompt based on your interests', 'prompted'),
-        buildCard('Read & Respond', 'Paste something to read, then write your thoughts', 'respond'),
-        buildCard('Free Writing', 'No prompt. Just you and the page.', 'free'),
+        buildCard('Prompted Writing', 'Get a writing prompt based on your interests', 'prompted', '<path d="M12 3L14.5 9L21 12L14.5 15L12 21L9.5 15L3 12L9.5 9L12 3Z" />', 220),
+        buildCard('Read & Respond', 'Paste something to read, then write your thoughts', 'respond', '<rect x="4" y="4" width="12" height="12" rx="1"/><rect x="8" y="8" width="12" height="12" rx="1"/>', 300),
+        buildCard('Free Writing', 'No prompt. Just you and the page.', 'free', '<path d="M4 12c3-4 5-4 8 0s5 4 8 0" />', 380),
     ];
 
     cards.forEach(card => {

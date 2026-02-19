@@ -28,16 +28,27 @@ window.scribbitRouter = {
         const app = document.getElementById('app');
         if (!app) return;
         const renderFn = routes[name];
-        if (!renderFn) {
-            // Home screen not built yet — show placeholder
-            app.innerHTML = `
-        <div style="display:flex;align-items:center;justify-content:center;height:100%;font-family:var(--font-family);color:var(--color-text-secondary);">
-          <p>🏠 Home screen coming soon…</p>
-        </div>`;
-            return;
+        if (!renderFn) return;
+
+        // Apply exit animation to existing content
+        const currentScreen = app.firstElementChild;
+        if (currentScreen) {
+            currentScreen.classList.add('screen-exit');
+            // Wait for exit animation to finish before rendering new screen
+            setTimeout(() => {
+                app.innerHTML = '';
+                const screenWrapper = document.createElement('div');
+                screenWrapper.className = 'screen-enter';
+                app.appendChild(screenWrapper);
+                renderFn(screenWrapper, params);
+            }, 200);
+        } else {
+            app.innerHTML = '';
+            const screenWrapper = document.createElement('div');
+            screenWrapper.className = 'screen-enter';
+            app.appendChild(screenWrapper);
+            renderFn(screenWrapper, params);
         }
-        app.innerHTML = '';
-        renderFn(app, params);
     },
 };
 

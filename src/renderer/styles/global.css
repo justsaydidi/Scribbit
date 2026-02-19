@@ -8,93 +8,108 @@
 :root,
 [data-theme="light"] {
   /* Background */
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f7f7f5;
-  --color-bg-tertiary: #efefed;
+  --color-bg: #F7F5F0;
+  /* Scribbit Paper */
+  --color-bg-secondary: #EFEDE8;
+  /* grey-4 equivalent */
+  --color-bg-tertiary: #E5E2DA;
 
   /* Surface / Cards */
-  --color-surface: #ffffff;
-  --color-surface-hover: #f0f0ee;
+  --color-surface: #F7F5F0;
+  --color-surface-hover: #EFEDE8;
 
   /* Text */
-  --color-text-primary: #1a1a1a;
-  --color-text-secondary: #6b6b6b;
-  --color-text-muted: #a0a0a0;
+  --color-text-primary: #111111;
+  /* Scribbit Ink */
+  --color-text-secondary: #3A3632;
+  /* grey-1 */
+  --color-text-muted: #6E6760;
+  /* grey-2 */
 
   /* Borders */
-  --color-border: #e5e5e3;
-  --color-border-focus: #1a1a1a;
+  --color-border: #B8B0A8;
+  /* grey-3 */
+  --color-border-focus: #111111;
 
   /* Accent */
-  --color-accent: #2563eb;
-  --color-accent-hover: #1d4ed8;
-  --color-accent-light: #eff6ff;
+  --color-accent: #C4873A;
+  /* Scribbit Amber */
+  --color-accent-hover: #B0762F;
+  --color-accent-light: rgba(196, 135, 58, 0.1);
 
   /* Status */
-  --color-success: #16a34a;
-  --color-warning: #d97706;
-  --color-error: #dc2626;
+  --color-success: #3A5F3A;
+  --color-warning: #C4873A;
+  --color-error: #A33A3A;
 
   /* Scrollbar */
-  --color-scrollbar: #d1d1cf;
-  --color-scrollbar-hover: #a8a8a6;
+  --color-scrollbar: #B8B0A8;
+  --color-scrollbar-hover: #6E6760;
+
+  /* Specific Scribbit Palette Names */
+  --scribbit-paper: #F7F5F0;
+  --scribbit-ink: #111111;
+  --scribbit-amber: #C4873A;
+  --scribbit-grey-1: #3A3632;
+  --scribbit-grey-2: #6E6760;
+  --scribbit-grey-3: #B8B0A8;
+  --scribbit-grey-4: #EFEDE8;
 }
 
 [data-theme="dark"] {
   /* Background */
-  --color-bg: #1a1a1a;
-  --color-bg-secondary: #242424;
-  --color-bg-tertiary: #2e2e2e;
+  --color-bg: #141210;
+  --color-bg-secondary: #1E1C19;
+  --color-bg-tertiary: #2A2622;
 
   /* Surface / Cards */
-  --color-surface: #242424;
-  --color-surface-hover: #2e2e2e;
+  --color-surface: #1E1C19;
+  --color-surface-hover: #2A2622;
 
   /* Text */
-  --color-text-primary: #f0f0ee;
-  --color-text-secondary: #a0a0a0;
-  --color-text-muted: #6b6b6b;
+  --color-text-primary: #F0EDE8;
+  --color-text-secondary: #C8C2BA;
+  --color-text-muted: #8A8178;
 
   /* Borders */
-  --color-border: #3a3a3a;
-  --color-border-focus: #f0f0ee;
+  --color-border: #3A3632;
+  --color-border-focus: #F0EDE8;
 
   /* Accent */
-  --color-accent: #3b82f6;
-  --color-accent-hover: #60a5fa;
-  --color-accent-light: #1e3a5f;
+  --color-accent: #C4873A;
+  --color-accent-hover: #D99545;
+  --color-accent-light: rgba(196, 135, 58, 0.15);
 
   /* Status */
-  --color-success: #22c55e;
-  --color-warning: #f59e0b;
-  --color-error: #f87171;
+  --color-success: #88A888;
+  --color-warning: #C4873A;
+  --color-error: #E58888;
 
   /* Scrollbar */
-  --color-scrollbar: #3a3a3a;
-  --color-scrollbar-hover: #4a4a4a;
+  --color-scrollbar: #3A3632;
+  --color-scrollbar-hover: #4A4642;
+
+  /* Specific Scribbit Palette Names */
+  --scribbit-paper: #141210;
+  --scribbit-ink: #F0EDE8;
+  --scribbit-amber: #C4873A;
+  --scribbit-grey-1: #C8C2BA;
+  --scribbit-grey-2: #8A8178;
+  --scribbit-grey-3: #3A3632;
+  --scribbit-grey-4: #1E1C19;
 }
 
 /* ── Typography Scale ──────────────────────────────────────── */
 :root {
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-size-xs: 12px;
-  --font-size-sm: 14px;
-  --font-size-base: 16px;
-  --font-size-md: 18px;
-  --font-size-lg: 20px;
-  --font-size-xl: 24px;
-  --font-size-2xl: 30px;
-  --font-size-3xl: 36px;
+  --font-display: 'Instrument Serif', serif;
+  --font-body: 'DM Sans', sans-serif;
 
-  --font-weight-light: 300;
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-
-  --line-height-tight: 1.25;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.75;
+  --type-display: 400 42px/1.15 var(--font-display);
+  --type-display-sm: 400 28px/1.2 var(--font-display);
+  --type-heading: 500 18px/1.3 var(--font-body);
+  --type-body: 400 15px/1.65 var(--font-body);
+  --type-small: 400 13px/1.5 var(--font-body);
+  --type-label: 500 11px/1.4 var(--font-body);
 
   /* Spacing */
   --space-1: 4px;
@@ -109,21 +124,18 @@
   --space-16: 64px;
 
   /* Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-full: 9999px;
+  --radius-sm: 10px;
+  /* buttons/inputs */
+  --radius-md: 14px;
+  /* cards */
+  --radius-lg: 18px;
+  /* modals */
+  --radius-full: 100px;
+  /* pills */
 
   /* Transitions */
-  --transition-fast: 100ms ease;
-  --transition-normal: 200ms ease;
-  --transition-slow: 350ms ease;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --transition-normal: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ── Reset & Base ──────────────────────────────────────────── */
@@ -137,7 +149,6 @@
 
 html {
   height: 100%;
-  font-size: var(--font-size-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -145,17 +156,14 @@ html {
 
 body {
   height: 100%;
-  font-family: var(--font-family);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-normal);
+  font: var(--type-body);
   color: var(--color-text-primary);
   background-color: var(--color-bg);
-  transition:
-    background-color var(--transition-normal),
-    color var(--transition-normal);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  transition: background-color var(--transition-normal), color var(--transition-normal);
   overflow: auto;
   user-select: none;
+  cursor: default;
 }
 
 #app {
@@ -195,35 +203,88 @@ a:hover {
 }
 
 /* ── Buttons (base) ────────────────────────────────────────── */
-button {
-  font-family: var(--font-family);
+button,
+.btn {
+  font-family: var(--font-body);
   cursor: pointer;
   border: none;
   background: none;
   outline: none;
+  transition: var(--transition-normal);
 }
 
-button:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+button:active,
+.btn:active {
+  transform: scale(0.97);
+}
+
+button:focus-visible,
+.btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.12);
+  border-radius: inherit;
 }
 
 /* ── Inputs (base) ─────────────────────────────────────────── */
 input,
 textarea {
-  font-family: var(--font-family);
-  font-size: var(--font-size-base);
+  font-family: var(--font-body);
+  font-size: 15px;
   color: var(--color-text-primary);
-  background: var(--color-bg);
+  background: var(--scribbit-paper);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   outline: none;
-  transition: border-color var(--transition-fast);
+  transition: var(--transition-normal);
 }
 
 input:focus,
 textarea:focus {
-  border-color: var(--color-border-focus);
+  border-color: var(--color-text-secondary);
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.06);
+}
+
+/* ── Screen Transitions ────────────────────────────────────── */
+.screen-exit {
+  animation: screenExit 200ms ease forwards;
+}
+
+.screen-enter {
+  animation: screenEnter 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes screenExit {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes screenEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Loading Pulse ─────────────────────────────────────────── */
+.loading-pulse {
+  animation: pulse-text 1.2s infinite;
+}
+
+@keyframes pulse-text {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
 }
 
 /* ── Utility: visually hidden ──────────────────────────────── */
@@ -266,4 +327,13 @@ textarea:focus {
 
 .gap-4 {
   gap: var(--space-4);
+}
+
+/* Ensure all interactive elements have pointer */
+button,
+a,
+.card,
+.tag,
+.toggle-container {
+  cursor: pointer;
 }
