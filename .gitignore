@@ -17,7 +17,23 @@ Thumbs.db
 
 # Environment/Private data
 .env
+<<<<<<< HEAD
 *.key
+=======
+.env.local
+*.env
+
+# API keys and secrets
+*apikey*
+*api-key*
+*api_key*
+credentials*.json
+secrets*.json
+*.key
+*.pem
+
+# Local database (Scribbit)
+>>>>>>> f8b73f1a2fa42b503aee5c15147cbe377ab9c5fc
 scribbit-db.json
 inkwell-db.json
 scribbit-db*.json
