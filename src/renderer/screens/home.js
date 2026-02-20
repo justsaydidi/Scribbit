@@ -20,40 +20,6 @@ function getGreetingParts(name) {
     };
 }
 
-async function getHabitData() {
-    const sessions = (await window.scribbit.db.get('sessions')) || [];
-    if (sessions.length === 0) return { streak: 0, total: 0 };
-
-    const sorted = [...sessions].sort((a, b) => new Date(b.date) - new Date(a.date));
-    let streak = 0;
-    let today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    let lastDate = null;
-
-    for (const s of sorted) {
-        const sDate = new Date(s.date);
-        sDate.setHours(0, 0, 0, 0);
-
-        if (lastDate && lastDate.getTime() === sDate.getTime()) continue;
-
-        const diff = lastDate ? (lastDate.getTime() - sDate.getTime()) / (1000 * 60 * 60 * 24) : 0;
-
-        if (!lastDate) {
-            const todayDiff = (today.getTime() - sDate.getTime()) / (1000 * 60 * 60 * 24);
-            if (todayDiff > 1) break; // Streak broken
-            streak = 1;
-        } else if (diff === 1) {
-            streak++;
-        } else {
-            break;
-        }
-        lastDate = sDate;
-    }
-
-    return { streak, total: sessions.length };
-}
-
 async function pickEncouragement() {
     // Get last shown index from storage to rotate through encouragements
     const settings = (await window.scribbit.db.get('settings')) || {};
@@ -102,7 +68,6 @@ function buildCard(label, sublabel, type, iconPath, delay) {
 async function render(container) {
     const profile = (await window.scribbit.db.get('profile')) || {};
     const encouragement = await pickEncouragement();
-    const habit = await getHabitData();
     const greeting = getGreetingParts(profile.name);
 
     container.innerHTML = `
@@ -115,18 +80,6 @@ async function render(container) {
           <div class="home-encouragement">${escHtml(encouragement)}</div>
           
           <div class="home-divider-rule"></div>
-
-          <div class="home-habit" id="home-habit">
-            <div class="home-habit-item">
-              <span class="home-habit-val">${habit.streak}</span>
-              <span class="home-habit-lab">Day Streak</span>
-            </div>
-            <div class="home-habit-divider"></div>
-            <div class="home-habit-item">
-              <span class="home-habit-val">${habit.total}</span>
-              <span class="home-habit-lab">Total Sessions</span>
-            </div>
-          </div>
         </div>
 
         <div class="home-section">

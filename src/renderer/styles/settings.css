@@ -60,7 +60,7 @@
 .st-title {
     font: var(--type-display-sm);
     color: var(--scribbit-ink);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.03em;
 }
 
 /* ── Sections ────────────────────────────────────────────────── */
@@ -80,12 +80,12 @@
 .st-card {
     background: var(--scribbit-paper);
     border: 1px solid var(--scribbit-grey-3);
-    border-radius: 14px;
+    border-radius: var(--radius-lg);
     padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    box-shadow: var(--shadow-elite);
 }
 
 /* ── Profile Section ──────────────────────────────────────────── */
@@ -287,19 +287,21 @@
 .st-edit-btn {
     background: var(--scribbit-ink);
     color: var(--scribbit-paper);
-    padding: 10px 24px;
-    border-radius: 10px;
-    font-family: var(--font-body);
+    padding: 12px 28px;
+    border-radius: 100px;
+    font: var(--type-heading);
     font-size: 14px;
-    font-weight: 500;
-    transition: var(--transition-normal);
+    transition: all var(--transition-fast);
     cursor: pointer;
     border: none;
+    box-shadow: var(--shadow-md);
 }
 
 .st-save-btn:hover,
 .st-edit-btn:hover {
-    background: #2A2622;
+    background: #111;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
 }
 
 @media (max-width: 480px) {

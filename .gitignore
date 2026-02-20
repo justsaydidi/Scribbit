@@ -1,29 +1,51 @@
-node_modules
-dist
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build artifacts
+dist/
+release/
+*.exe
+*.dmg
+*.app
+*.zip
+*.blockmap
+
+# OS metadata
 .DS_Store
+Thumbs.db
 
-# Environment variables
+# Environment/Private data
 .env
-.env.local
-*.env
-
-# API keys and secrets
-*apikey*
-*api-key*
-*api_key*
-credentials*.json
-secrets*.json
 *.key
-*.pem
-
-# Local database files
 scribbit-db.json
 inkwell-db.json
 scribbit-db*.json
 inkwell-db*.json
 
-# Development
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 *.log
-.gemini
-.agent
-brain
+
+# Editor-specific
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# System generated artifacts
+.gemini/
+.agent/
+brain/
+walkthrough.md
+task.md
+implementation_plan.md
+*.webp
+*.png
+!assets/showcase/*.png
+!assets/icons/*.png

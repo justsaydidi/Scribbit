@@ -101,41 +101,48 @@
 
 /* ── Typography Scale ──────────────────────────────────────── */
 :root {
-  --font-display: 'Instrument Serif', serif;
-  --font-body: 'DM Sans', sans-serif;
+  /* Typography - Geist System */
+  --font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --type-display: 300 36px/1.2 var(--font-family);
+  --type-heading: 500 16px/1.3 var(--font-family);
+  --type-body: 400 14px/1.65 var(--font-family);
+  --type-small: 400 12px/1.5 var(--font-family);
+  --type-label: 500 11px var(--font-family);
 
-  --type-display: 400 42px/1.15 var(--font-display);
-  --type-display-sm: 400 28px/1.2 var(--font-display);
-  --type-heading: 500 18px/1.3 var(--font-body);
-  --type-body: 400 15px/1.65 var(--font-body);
-  --type-small: 400 13px/1.5 var(--font-body);
-  --type-label: 500 11px/1.4 var(--font-body);
+  /* Letter Spacing */
+  --type-display-ls: -0.02em;
+  --type-heading-ls: -0.01em;
+  --type-label-ls: 0.06em;
 
   /* Spacing */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
-  --space-5: 20px;
   --space-6: 24px;
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
   --space-16: 64px;
 
-  /* Radius */
-  --radius-sm: 10px;
-  /* buttons/inputs */
-  --radius-md: 14px;
-  /* cards */
-  --radius-lg: 18px;
-  /* modals */
-  --radius-full: 100px;
-  /* pills */
+  /* Border Radius - Refined Elite */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
 
-  /* Transitions */
-  --transition-normal: 180ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Shadows - Multi-layered Elite */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+  --shadow-elite: 0 0 0 1px rgba(17, 17, 17, 0.02), 0 12px 24px -10px rgba(17, 17, 17, 0.1);
+
+  /* Animations */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* ── Reset & Base ──────────────────────────────────────────── */

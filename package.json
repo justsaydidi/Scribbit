@@ -1,8 +1,12 @@
 {
   "name": "scribbit",
   "version": "1.0.0",
-  "description": "A distraction-free, AI-assisted writing app",
+  "description": "A beautiful, distraction-free, AI-assisted writing application.",
   "main": "src/main/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/justsaydidi/Scribbit.git"
+  },
   "author": "Scribbit",
   "license": "MIT",
   "scripts": {
@@ -13,7 +17,17 @@
     "build:win": "electron-builder --win portable",
     "build:all": "electron-builder --mac --win portable"
   },
-  "keywords": [],
+  "keywords": [
+    "writing",
+    "distraction-free",
+    "ai",
+    "productivity",
+    "electron",
+    "gemini",
+    "claude",
+    "gpt-4",
+    "notes"
+  ],
   "dependencies": {
     "@anthropic-ai/sdk": "^0.76.0",
     "@google/generative-ai": "^0.24.1",

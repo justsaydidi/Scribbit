@@ -117,27 +117,31 @@
 .ob-eyebrow {
     font: var(--type-label);
     color: var(--scribbit-grey-2);
-    margin-bottom: var(--space-2);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .ob-heading {
     font: var(--type-display-sm);
     color: var(--scribbit-ink);
-    margin-bottom: var(--space-4);
+    margin-bottom: 12px;
+    letter-spacing: -0.03em;
 }
 
 .ob-sub {
+    font: var(--type-body);
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 500;
     color: var(--scribbit-grey-2);
-    line-height: 1.7;
-    margin-top: calc(-1 * var(--space-2));
+    line-height: 1.6;
+    margin-top: 0;
 }
 
 .ob-label {
     font: var(--type-heading);
     color: var(--scribbit-ink);
-    margin-bottom: var(--space-2);
+    margin-bottom: 8px;
     display: block;
 }
 
@@ -217,29 +221,32 @@
 }
 
 .ob-tag {
-    padding: 9px 16px;
-    font-family: var(--font-body);
+    padding: 10px 20px;
+    font: var(--type-body);
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 600;
     color: var(--scribbit-grey-2);
-    background: transparent;
+    background: var(--scribbit-paper);
     border: 1px solid var(--scribbit-grey-3);
     border-radius: 100px;
     cursor: pointer;
-    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--transition-bounce);
     user-select: none;
+    box-shadow: var(--shadow-sm);
 }
 
 .ob-tag:hover {
     background: var(--scribbit-grey-4);
     border-color: var(--scribbit-grey-2);
+    transform: translateY(-2px);
 }
 
 .ob-tag--selected {
     background: var(--scribbit-ink);
     color: var(--scribbit-paper);
     border-color: var(--scribbit-ink);
-    transform: scale(1.02);
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px -6px rgba(17, 17, 17, 0.2);
 }
 
 .ob-tag--selected:hover {
@@ -271,17 +278,18 @@
 .ob-btn--primary {
     background: var(--scribbit-ink);
     color: var(--scribbit-paper);
+    box-shadow: var(--shadow-md);
 }
 
 .ob-btn--primary:hover:not(:disabled) {
-    background: #2A2622;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background: #111;
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: var(--shadow-lg);
 }
 
 .ob-btn--primary:active:not(:disabled) {
-    transform: translateY(0);
-    box-shadow: none;
+    transform: scale(0.98);
+    box-shadow: var(--shadow-sm);
 }
 
 .ob-btn--primary:disabled {

@@ -95,8 +95,9 @@
 .psu-prompt-text {
     font: var(--type-display-sm);
     font-size: 32px;
-    line-height: 1.35;
+    line-height: 1.25;
     color: var(--scribbit-ink);
+    letter-spacing: -0.03em;
 }
 
 .psu-bookmark-btn {

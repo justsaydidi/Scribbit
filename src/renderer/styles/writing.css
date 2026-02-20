@@ -27,7 +27,7 @@
 .writing-timer {
     font: var(--type-label);
     color: var(--scribbit-grey-2);
-    letter-spacing: 0.1em;
+    letter-spacing: var(--type-label-ls);
     text-transform: uppercase;
 }
 
@@ -159,7 +159,9 @@
 }
 
 .writing-overlay-title {
-    font: var(--type-display-sm);
+    font: var(--type-display);
+    font-size: 24px;
+    font-weight: 300;
     color: var(--scribbit-ink);
 }
 

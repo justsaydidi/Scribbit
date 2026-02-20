@@ -42,8 +42,10 @@
 
 .wo-title {
     font: var(--type-display-sm);
+    font-size: 32px;
+    font-weight: 800;
     color: var(--scribbit-ink);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
 }
 
 .wo-text {
@@ -67,16 +69,17 @@
     max-width: 240px;
     background: var(--scribbit-ink);
     color: var(--scribbit-paper);
-    padding: 14px 32px;
+    padding: 16px 32px;
     border-radius: 100px;
     font: var(--type-heading);
-    transition: all 180ms ease;
+    transition: all var(--transition-fast);
     border: none;
     cursor: pointer;
+    box-shadow: var(--shadow-md);
 }
 
 .wo-btn-primary:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
 }
 
 .wo-btn-text {

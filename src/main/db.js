@@ -38,7 +38,7 @@ try {
 const DEFAULT_DATA = {
     settings: {
         theme: 'light',
-        font: 'Inter',
+        font: 'Geist',
         fontSize: 18,
     },
     documents: [],

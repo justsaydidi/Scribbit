@@ -6,76 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scribbit — Write more. Think better.</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600&family=Lora:ital,wght@0,400;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap');
 
         :root {
-            --scribbit-black: #0A0A0A;
+            --scribbit-ink: #111111;
             --scribbit-grey-1: #3D3D3D;
             --scribbit-grey-2: #717171;
-            --scribbit-grey-3: #B8B8B8;
-            --scribbit-grey-4: #F2F2F2;
-            --scribbit-white: #FAFAFA;
-            --scribbit-blue: #1A47D4;
-            --scribbit-blue-hover: #1338B0;
+            --scribbit-grey-3: #B8B0A8;
+            --scribbit-grey-4: #EBE8E0;
+            --scribbit-paper: #F7F5F0;
+            --scribbit-black: #111111;
 
-            --max-width: 1100px;
-            --section-padding: 120px 24px;
+            --max-width: 1000px;
+            --section-padding: 100px 24px;
         }
 
         /* Type Scale */
         --text-hero {
-            font-family: 'Lora', serif;
+            font-family: 'Geist', sans-serif;
             font-size: 72px;
-            font-weight: 400;
+            font-weight: 300;
             line-height: 1.1;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
         }
 
         --text-h2 {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Geist', sans-serif;
             font-size: 40px;
-            font-weight: 600;
+            font-weight: 500;
             line-height: 1.2;
             letter-spacing: -0.02em;
         }
 
         --text-h3 {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Geist', sans-serif;
             font-size: 22px;
-            font-weight: 600;
+            font-weight: 500;
             line-height: 1.3;
             letter-spacing: -0.01em;
         }
 
-        --text-body-large {
-            font-family: 'Inter', sans-serif;
-            font-size: 18px;
-            font-weight: 400;
-            line-height: 1.7;
-        }
-
         --text-body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Geist', sans-serif;
             font-size: 16px;
             font-weight: 400;
             line-height: 1.65;
-        }
-
-        --text-small {
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 400;
-            line-height: 1.5;
-            letter-spacing: 0.01em;
-        }
-
-        --text-label {
-            font-family: 'Inter', sans-serif;
-            font-size: 11px;
-            font-weight: 500;
-            line-height: 1.4;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
         }
 
         * {
@@ -85,9 +60,9 @@
         }
 
         body {
-            background-color: var(--scribbit-white);
+            background-color: var(--scribbit-paper);
             color: var(--scribbit-grey-1);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Geist', sans-serif;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
@@ -209,9 +184,9 @@
         }
 
         h1 {
-            font-family: 'Lora', serif;
+            font-family: 'Geist', sans-serif;
             font-size: 72px;
-            font-weight: 400;
+            font-weight: 300;
             line-height: 1.1;
             letter-spacing: -0.02em;
             color: var(--scribbit-black);
@@ -224,7 +199,7 @@
 
         h2 {
             font-size: 40px;
-            font-weight: 600;
+            font-weight: 500;
             line-height: 1.2;
             letter-spacing: -0.02em;
             color: var(--scribbit-black);
@@ -258,20 +233,20 @@
         }
 
         .btn-primary {
-            background: var(--scribbit-blue);
-            color: #FAFAFA;
+            background: var(--scribbit-ink);
+            color: var(--scribbit-paper);
         }
 
         .btn-primary:hover {
-            background: var(--scribbit-blue-hover);
+            background: #2A2622;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(26, 71, 212, 0.25);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
         }
 
         .btn-secondary {
             background: transparent;
             border: 1px solid var(--scribbit-grey-3);
-            color: var(--scribbit-black);
+            color: var(--scribbit-ink);
         }
 
         .btn-secondary:hover {
@@ -308,6 +283,24 @@
         .hero-content.loaded {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .hero-image-container {
+            margin-top: 60px;
+            position: relative;
+            z-index: 10;
+            border-radius: 12px;
+            box-shadow: 0 20px 80px -20px rgba(0, 0, 0, 0.15);
+            background: var(--scribbit-paper);
+            overflow: hidden;
+            border: 1px solid var(--scribbit-grey-3);
+        }
+
+        .hero-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
         }
 
         .scroll-indicator {
@@ -390,7 +383,7 @@
 
         .card-title {
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--scribbit-black);
             margin-bottom: 10px;
         }
@@ -432,7 +425,7 @@
 
         .feature-name {
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--scribbit-black);
             margin-bottom: 8px;
         }
@@ -451,8 +444,8 @@
         }
 
         .quote-text {
-            font-family: 'Lora', serif;
-            font-style: italic;
+            font-family: 'Geist', sans-serif;
+            font-weight: 300;
             font-size: 32px;
             line-height: 1.4;
             max-width: 640px;
@@ -578,6 +571,10 @@
                     Windows</a>
             </div>
             <div class="meta-note">Free and open source · Bring your own AI key</div>
+
+            <div class="hero-image-container fade-in-up delay-2">
+                <img src="../assets/showcase/home.png" alt="Scribbit App Dashboard" class="hero-image">
+            </div>
         </div>
         <div class="scroll-indicator" id="scroll-indicator">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

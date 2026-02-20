@@ -26,8 +26,8 @@
 
 .warmup-transition-text {
     font: var(--type-display-sm);
-    font-style: italic;
     color: var(--scribbit-amber);
+    letter-spacing: -0.04em;
     animation: warmup-pulse 2s ease-in-out infinite;
 }
 

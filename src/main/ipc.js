@@ -287,6 +287,7 @@ module.exports = function registerIpcHandlers(db, aiModule, getMainWindow) {
             } else {
                 win.setFullScreen(false);
                 win.setMenuBarVisibility(true);
+                win.setAutoHideMenuBar(false);
             }
         }
         return true;
