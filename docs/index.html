@@ -504,29 +504,92 @@
         }
 
         @media (max-width: 768px) {
+            :root {
+                --section-padding: 64px 20px;
+            }
+
             h1 {
-                font-size: 56px;
+                font-size: 42px;
+                line-height: 1.15;
             }
 
             h2 {
                 font-size: 32px;
             }
 
+            .subheadline {
+                font-size: 17px;
+                margin-bottom: 32px;
+            }
+
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                /* Fallback */
+                min-height: 100dvh;
+                padding-top: 100px;
+                padding-bottom: 40px;
+            }
+
+            .button-group {
+                flex-direction: column;
+                width: 100%;
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
             .card-grid,
             .feature-grid {
                 grid-template-columns: 1fr;
+                gap: 16px;
+                margin-top: 32px;
+            }
+
+            .card,
+            .feature-card {
+                padding: 24px;
+            }
+
+            .pull-quote {
+                padding: 80px 20px;
+            }
+
+            .quote-text {
+                font-size: 24px;
             }
 
             nav {
-                padding: 0 20px;
+                padding: 0 16px;
+                height: 56px;
+            }
+
+            .nav-brand {
+                font-size: 18px;
+                /* Slightly larger for touch */
             }
 
             .nav-links {
-                gap: 16px;
+                gap: 12px;
             }
 
-            section {
-                padding: 80px 20px;
+            .nav-link {
+                display: none;
+                /* Hide 'GitHub' text link on mobile to save space */
+            }
+
+            .hero-image-container {
+                margin-top: 40px;
+            }
+
+            .scroll-indicator {
+                display: none;
+                /* Hide scroll indicator on mobile to avoid fold issues */
             }
         }
     </style>
@@ -558,7 +621,7 @@
             <div class="meta-note">Free and open source · Bring your own AI key</div>
 
             <div class="hero-image-container fade-in-up delay-2">
-                <img src="./assets/showcase/dashboard.png" alt="Scribbit App Dashboard" class="hero-image">
+                <img src="./assets/showcase/dashboard.svg" alt="Scribbit Onboarding Screen" class="hero-image">
             </div>
         </div>
         <div class="scroll-indicator" id="scroll-indicator">
