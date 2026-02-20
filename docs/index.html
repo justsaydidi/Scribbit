@@ -70,8 +70,16 @@
             justify-content: space-between;
             padding: 0 40px;
             z-index: 1000;
-            opacity: 0;
+            opacity: 1;
             transition: opacity 400ms ease, border-bottom 300ms ease;
+        }
+
+        body.js nav {
+            opacity: 0;
+        }
+
+        body.js nav.is-visible {
+            opacity: 1;
         }
 
         nav.scrolled {
@@ -228,10 +236,8 @@
         }
 
         .hero-content {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 600ms ease;
-            transition-delay: 200ms;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .hero-image-container {
@@ -251,6 +257,18 @@
         }
 
         .hero-content.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        body.js .hero-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 600ms ease;
+            transition-delay: 200ms;
+        }
+
+        body.js .hero-content.loaded {
             opacity: 1;
             transform: translateY(0);
         }
@@ -875,6 +893,8 @@
     </footer>
 
     <script>
+        document.body.classList.add('js');
+
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
@@ -909,7 +929,7 @@
 
         // Hero load animation
         window.addEventListener('load', () => {
-            document.getElementById('navbar').style.opacity = '1';
+            document.getElementById('navbar').classList.add('is-visible');
             document.getElementById('hero-content').classList.add('loaded');
         });
     </script>
