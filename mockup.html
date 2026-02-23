@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scribbit Mockup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --color-bg: #F7F5F0;
+            --color-bg-secondary: #EFEDE8;
+            --color-text-primary: #111111;
+            --color-text-secondary: #3A3632;
+            --color-border: #B8B0A8;
+            --color-accent: #C4873A;
+            --scribbit-paper: #F7F5F0;
+            --scribbit-ink: #111111;
+            --scribbit-grey-1: #3A3632;
+            --scribbit-grey-2: #6E6760;
+            --scribbit-grey-3: #B8B0A8;
+            --scribbit-grey-4: #EFEDE8;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+            --radius-full: 9999px;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --space-2: 8px;
+            --space-4: 16px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: var(--color-bg);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            font-family: var(--font-family);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .ob-card {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            padding: 40px;
+            /* Optional: subtle shadow for the mockup to separate it from background if needed, but per request "no window chrome" maybe just the content */
+            /* Let's keep it clean, no card background, just the content floating on the paper background */
+        }
+
+        .ob-progress {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .ob-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: var(--radius-full);
+            background: var(--color-border);
+        }
+
+        .ob-dot--active {
+            width: 24px;
+            background: var(--color-text-primary);
+        }
+
+        .ob-dot--done {
+            background: var(--color-text-secondary);
+        }
+
+        .ob-heading {
+            font-size: 36px;
+            font-weight: 300;
+            color: var(--scribbit-ink);
+            margin: 0 0 12px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .ob-sub {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--scribbit-grey-2);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .ob-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .ob-tag {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--scribbit-grey-2);
+            background: var(--scribbit-paper);
+            border: 1px solid var(--scribbit-grey-3);
+            border-radius: 100px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .ob-tag--selected {
+            background: var(--scribbit-ink);
+            color: var(--scribbit-paper);
+            border-color: var(--scribbit-ink);
+            box-shadow: 0 8px 20px -6px rgba(17, 17, 17, 0.2);
+            transform: scale(1.02);
+        }
+
+        .ob-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 16px;
+            padding-top: 24px;
+        }
+
+        .ob-btn {
+            padding: 14px 32px;
+            font-family: var(--font-family);
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 10px;
+            border: none;
+        }
+
+        .ob-btn--primary {
+            background: var(--scribbit-ink);
+            color: var(--scribbit-paper);
+            box-shadow: var(--shadow-md);
+        }
+
+        .ob-btn--ghost {
+            background: transparent;
+            color: var(--scribbit-grey-2);
+            border: 1px solid var(--scribbit-grey-3);
+            padding: 13px 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ob-card">
+        <div class="ob-progress">
+            <div class="ob-dot ob-dot--done"></div>
+            <div class="ob-dot ob-dot--active"></div>
+            <div class="ob-dot"></div>
+            <div class="ob-dot"></div>
+        </div>
+
+        <div class="ob-body">
+            <div>
+                <h1 class="ob-heading">What topics interest you?</h1>
+                <p class="ob-sub">Select everything that resonates — you can change this later.</p>
+            </div>
+
+            <div class="ob-tags">
+                <div class="ob-tag">Business & Entrepreneurship</div>
+                <div class="ob-tag ob-tag--selected">Technology</div>
+                <div class="ob-tag">Personal Development</div>
+                <div class="ob-tag">Relationships</div>
+                <div class="ob-tag">Culture & Society</div>
+                <div class="ob-tag">Faith</div>
+                <div class="ob-tag">Health & Wellbeing</div>
+                <div class="ob-tag">Finance</div>
+                <div class="ob-tag">Leadership</div>
+                <div class="ob-tag ob-tag--selected">Creativity</div>
+                <div class="ob-tag">Current Events</div>
+                <div class="ob-tag">History</div>
+                <div class="ob-tag ob-tag--selected">Philosophy</div>
+                <div class="ob-tag">Sports</div>
+            </div>
+
+            <div class="ob-actions">
+                <button class="ob-btn ob-btn--ghost">← Back</button>
+                <button class="ob-btn ob-btn--primary">Continue →</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

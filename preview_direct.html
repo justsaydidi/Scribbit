@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scribbit Design Verification</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap');
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: #FAFAFA;
+            /* Site background */
+            font-family: 'Geist', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .preview-label {
+            position: absolute;
+            top: 20px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* The Design Container */
+        .home-container {
+            width: 100%;
+            max-width: 860px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .home-greeting {
+            font-size: 48px;
+            font-weight: 300;
+            color: #111111;
+            letter-spacing: -0.03em;
+            margin: 0 0 8px 0;
+            line-height: 1.1;
+            text-align: center;
+        }
+
+        .home-name-italic {
+            font-style: italic;
+        }
+
+        .home-encouragement {
+            font-size: 18px;
+            color: #6E6760;
+            margin-bottom: 24px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .home-divider-rule {
+            width: 40px;
+            height: 1px;
+            background: #B8B0A8;
+            margin: 0 auto;
+        }
+
+        .home-section-title {
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #6E6760;
+            margin: 32px 0 20px 0;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .home-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .home-session-card {
+            background: #F7F5F0;
+            border: 1px solid #B8B0A8;
+            border-radius: 12px;
+            padding: 24px 20px;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+            cursor: default;
+        }
+
+        .home-session-icon {
+            width: 24px;
+            height: 24px;
+            color: #6E6760;
+            margin-bottom: 12px;
+        }
+
+        .home-session-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #111111;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .home-session-sub {
+            font-size: 13px;
+            color: #6E6760;
+            line-height: 1.4;
+        }
+
+        .home-session-arrow {
+            margin-top: auto;
+            padding-top: 16px;
+            color: #B8B0A8;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="preview-label">PREVIEW (Pure HTML)</div>
+
+    <div class="home-container">
+        <div class="home-greeting">
+            Good morning, <span class="home-name-italic">Writer</span>
+        </div>
+        <div class="home-encouragement">Your ideas deserve to exist. Let's get them out.</div>
+        <div class="home-divider-rule"></div>
+
+        <div class="home-section-title">What kind of session today?</div>
+
+        <div class="home-cards">
+            <!-- Card 1 -->
+            <div class="home-session-card">
+                <div class="home-session-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 3L14.5 9L21 12L14.5 15L12 21L9.5 15L3 12L9.5 9L12 3Z" />
+                    </svg>
+                </div>
+                <div class="home-session-title">Prompted Writing</div>
+                <div class="home-session-sub">Get a writing prompt based on your interests</div>
+                <div class="home-session-arrow">→</div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="home-session-card">
+                <div class="home-session-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="4" y="4" width="12" height="12" rx="1" />
+                        <rect x="8" y="8" width="12" height="12" rx="1" />
+                    </svg>
+                </div>
+                <div class="home-session-title">Read &amp; Respond</div>
+                <div class="home-session-sub">Paste something to read, then write your thoughts</div>
+                <div class="home-session-arrow">→</div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="home-session-card">
+                <div class="home-session-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 12c3-4 5-4 8 0s5 4 8 0" />
+                    </svg>
+                </div>
+                <div class="home-session-title">Free Writing</div>
+                <div class="home-session-sub">No prompt. Just you and the page.</div>
+                <div class="home-session-arrow">→</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -6,6 +6,7 @@ const db = require('./db');
 const ai = require('./ai');
 
 let mainWindow;
+let isQuitting = false;
 
 const cacheDir = path.join(app.getPath('userData'), 'Cache');
 app.commandLine.appendSwitch('disk-cache-dir', cacheDir);
@@ -46,6 +47,28 @@ app.whenReady().then(() => {
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+});
+
+// Save session before quitting
+app.on('before-quit', async (event) => {
+  if (isQuitting) return;
+  
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    event.preventDefault();
+    isQuitting = true;
+    
+    try {
+      await mainWindow.webContents.executeJavaScript(`
+        if (window.scribbitWriting && window.scribbitWriting.autosaveSession) {
+          window.scribbitWriting.autosaveSession();
+        }
+      `);
+    } catch (err) {
+      console.error('Error saving session before quit:', err);
+    }
+    
+    app.quit();
+  }
 });
 
 app.on('window-all-closed', () => {

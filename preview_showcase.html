@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showcase Asset Preview</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            font-family: sans-serif;
+            background-color: #FAFAFA;
+            /* Matches website body/hero background */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .preview-container {
+            border: 1px dashed #ccc;
+            background-color: transparent;
+            /* Validate transparency */
+            max-width: 1000px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Showcase Asset Preview</h1>
+    <p>This is how the image looks on the website background (#FAFAFA).</p>
+
+    <div class="preview-container">
+        <img src="docs/assets/showcase/dashboard_home.svg?v=2" alt="Preview">
+    </div>
+</body>
+
+</html>

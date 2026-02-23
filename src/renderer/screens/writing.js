@@ -1,16 +1,20 @@
 /**
  * Writing Screen
  * Focused writing experience with timer and autosave.
+ * Autosaves continuously like Google Docs - no manual save needed.
  */
 
-const AUTOSAVE_INTERVAL_MS = 30 * 1000;
+const AUTOSAVE_INTERVAL_MS = 5 * 1000;
+const DEBOUNCE_SAVE_MS = 3000;
 const DEFAULT_PROMPT = 'Write about a moment that changed your perspective.';
 
 let sessionState = null;
 let timerInterval = null;
 let autosaveInterval = null;
+let debounceTimeout = null;
 let allowUnload = false;
 let escapeListener = null;
+let currentTextarea = null;
 
 function formatTime(totalSeconds) {
     const mins = Math.floor(totalSeconds / 60);
@@ -63,10 +67,51 @@ async function saveDraft(textarea) {
     await window.scribbit.db.set('sessionDraft', draft);
 }
 
+async function autosaveSession(textarea) {
+    if (!sessionState || !textarea) return;
+    
+    const text = textarea.value;
+    if (!text || text.trim().length === 0) return;
+    
+    const sessions = (await window.scribbit.db.get('sessions')) || [];
+    const existingIndex = sessions.findIndex(s => s.id === sessionState.id);
+    
+    const sessionData = {
+        id: sessionState.id,
+        date: sessionState.startedAt,
+        sessionType: getSessionTypeLabel(sessionState.type),
+        prompt: sessionState.prompt || null,
+        readingMaterial: sessionState.readingMaterial || null,
+        text,
+        wordCount: wordCount(text),
+        lastAutosaved: new Date().toISOString(),
+        exitMode: 'autosave',
+    };
+    
+    if (existingIndex !== -1) {
+        sessions[existingIndex] = sessionData;
+    } else {
+        sessions.unshift(sessionData);
+    }
+    
+    await window.scribbit.db.set('sessions', sessions);
+    
+    const saveIndicator = document.getElementById('autosave-indicator');
+    if (saveIndicator) {
+        saveIndicator.textContent = 'Saved';
+        setTimeout(() => {
+            if (saveIndicator) saveIndicator.textContent = '';
+        }, 2000);
+    }
+}
+
 async function saveSession(textarea, mode = 'complete') {
     if (!sessionState) return null;
     const text = textarea.value;
     const sessions = (await window.scribbit.db.get('sessions')) || [];
+    
+    const existingIndex = sessions.findIndex(s => s.id === sessionState.id);
+    
     const savedSession = {
         id: sessionState.id,
         date: sessionState.startedAt,
@@ -78,7 +123,13 @@ async function saveSession(textarea, mode = 'complete') {
         completedAt: new Date().toISOString(),
         exitMode: mode,
     };
-    sessions.unshift(savedSession);
+    
+    if (existingIndex !== -1) {
+        sessions[existingIndex] = savedSession;
+    } else {
+        sessions.unshift(savedSession);
+    }
+    
     await window.scribbit.db.set('sessions', sessions);
     await window.scribbit.db.delete('sessionDraft');
     return savedSession;
@@ -105,9 +156,25 @@ function stopIntervals() {
         clearInterval(autosaveInterval);
         autosaveInterval = null;
     }
+    if (debounceTimeout) {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = null;
+    }
+}
+
+function triggerDebouncedSave(textarea) {
+    if (debounceTimeout) {
+        clearTimeout(debounceTimeout);
+    }
+    debounceTimeout = setTimeout(() => {
+        autosaveSession(textarea);
+    }, DEBOUNCE_SAVE_MS);
 }
 
 async function exitWritingMode() {
+    if (currentTextarea) {
+        await autosaveSession(currentTextarea);
+    }
     if (window.scribbit && window.scribbit.window) {
         await window.scribbit.window.setWritingMode(false);
     }
@@ -117,6 +184,7 @@ async function exitWritingMode() {
         document.removeEventListener('keydown', escapeListener);
         escapeListener = null;
     }
+    currentTextarea = null;
 }
 
 async function handleFinish(textarea) {
@@ -209,6 +277,7 @@ async function render(container, params = {}) {
     <div class="writing-root">
       <div class="writing-header">
         <div class="writing-timer" id="writing-timer">30:00</div>
+        <div class="autosave-indicator" id="autosave-indicator"></div>
       </div>
 
       <div class="writing-body">
@@ -257,6 +326,8 @@ async function render(container, params = {}) {
     const sidebar = container.querySelector('#writing-sidebar');
     const sidebarToggle = container.querySelector('#writing-sidebar-toggle');
     const readingEl = container.querySelector('#writing-reading');
+    
+    currentTextarea = textarea;
 
     if (sessionState.prompt) {
         promptEl.textContent = sessionState.prompt;
@@ -283,8 +354,12 @@ async function render(container, params = {}) {
 
     textarea.focus();
 
+    textarea.addEventListener('input', () => {
+        triggerDebouncedSave(textarea);
+    });
+
     autosaveInterval = setInterval(() => {
-        saveDraft(textarea);
+        autosaveSession(textarea);
     }, AUTOSAVE_INTERVAL_MS);
 
     await initTimer(textarea);
@@ -323,4 +398,11 @@ if (window.scribbitRouter) {
     window.scribbitRouter.register('writing', render);
 }
 
-window.scribbitWriting = { render };
+window.scribbitWriting = { 
+    render,
+    autosaveSession: async () => {
+        if (currentTextarea && sessionState) {
+            await autosaveSession(currentTextarea);
+        }
+    }
+};

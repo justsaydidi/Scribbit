@@ -1,0 +1,111 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="1200" height="800" fill="#F7F5F0"/>
+    
+    <!-- Subtle Paper Texture Noise (Simulated with simple pattern) -->
+    <defs>
+        <filter id="shadow-sm">
+            <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.05"/>
+        </filter>
+        <filter id="shadow-md">
+            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.1"/>
+        </filter>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;display=swap');
+            text { font-family: 'Geist', sans-serif; fill: #111111; }
+            .sub { fill: #6E6760; }
+            .card { fill: #FFFFFF; filter: url(#shadow-sm); transition: all 0.2s; }
+            .card:hover { filter: url(#shadow-md); translate: 0 -2px; }
+            .btn { fill: #111111; rx: 8; }
+            .btn-text { fill: #F7F5F0; font-weight: 500; }
+            .tag { fill: #F7F5F0; stroke: #B8B0A8; rx: 16; }
+            .tag-text { fill: #6E6760; font-size: 14px; font-weight: 500; }
+            .tag-selected { fill: #111111; stroke: #111111; }
+            .tag-selected-text { fill: #F7F5F0; }
+        </style>
+    </defs>
+
+    <!-- App Window Container (Optional - keeping it clean per "no Chrome" request, just content) -->
+
+    <!-- Main Content Area -->
+    <g transform="translate(100, 100)">
+        
+        <!-- Progress Dots -->
+        <circle cx="0" cy="0" r="3" fill="#6E6760" opacity="0.5"/>
+        <line x1="10" y1="0" x2="30" y2="0" stroke="#111111" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="40" cy="0" r="3" fill="#B8B0A8"/>
+        <circle cx="60" cy="0" r="3" fill="#B8B0A8"/>
+
+        <!-- Typography -->
+        <text x="0" y="80" font-size="48" font-weight="300" letter-spacing="-0.02em">What topics interest you?</text>
+        <text x="0" y="120" font-size="18" font-weight="400" class="sub">Select everything that resonates — you can change this later.</text>
+
+        <!-- Tags Grid -->
+        <g transform="translate(0, 180)">
+            <!-- Row 1 -->
+            <g transform="translate(0, 0)">
+                <rect x="0" y="0" width="240" height="44" class="tag"/>
+                <text x="120" y="28" text-anchor="middle" class="tag-text">Business &amp; Entrepreneurship</text>
+            </g>
+            <g transform="translate(256, 0)">
+                <rect x="0" y="0" width="140" height="44" class="tag tag-selected"/>
+                <text x="70" y="28" text-anchor="middle" class="tag-text tag-selected-text">Technology</text>
+            </g>
+            <g transform="translate(412, 0)">
+                <rect x="0" y="0" width="200" height="44" class="tag"/>
+                <text x="100" y="28" text-anchor="middle" class="tag-text">Personal Development</text>
+            </g>
+
+            <!-- Row 2 -->
+            <g transform="translate(0, 60)">
+                <rect x="0" y="0" width="160" height="44" class="tag"/>
+                <text x="80" y="28" text-anchor="middle" class="tag-text">Creative Writing</text>
+            </g>
+            <g transform="translate(176, 0)">
+                <rect x="0" y="0" width="120" height="44" class="tag tag-selected"/>
+                <text x="60" y="28" text-anchor="middle" class="tag-text tag-selected-text">Philosophy</text>
+            </g>
+            <g transform="translate(312, 0)">
+                <rect x="0" y="0" width="140" height="44" class="tag"/>
+                <text x="70" y="28" text-anchor="middle" class="tag-text">Psychology</text>
+            </g>
+             <g transform="translate(468, 0)">
+                <rect x="0" y="0" width="200" height="44" class="tag tag-selected"/>
+                <text x="100" y="28" text-anchor="middle" class="tag-text tag-selected-text">Science Fiction</text>
+            </g>
+
+            <!-- Row 3 -->
+            <g transform="translate(0, 120)">
+                <rect x="0" y="0" width="110" height="44" class="tag"/>
+                <text x="55" y="28" text-anchor="middle" class="tag-text">History</text>
+            </g>
+            <g transform="translate(126, 0)">
+                <rect x="0" y="0" width="180" height="44" class="tag"/>
+                <text x="90" y="28" text-anchor="middle" class="tag-text">Health &amp; Wellness</text>
+            </g>
+            <g transform="translate(322, 0)">
+                <rect x="0" y="0" width="130" height="44" class="tag tag-selected"/>
+                <text x="65" y="28" text-anchor="middle" class="tag-text tag-selected-text">Journaling</text>
+            </g>
+        </g>
+
+        <!-- Actions -->
+        <g transform="translate(0, 400)">
+            <g transform="translate(0, 0)">
+                <rect x="0" y="0" width="120" height="48" rx="10" stroke="#B8B0A8" fill="none"/>
+                <text x="60" y="30" text-anchor="middle" font-size="16" fill="#6E6760">Back</text>
+            </g>
+             <g transform="translate(140, 0)">
+                <rect x="0" y="0" width="160" height="48" rx="10" fill="#111111"/>
+                <text x="80" y="30" text-anchor="middle" font-size="16" fill="#F7F5F0" font-weight="500">Continue →</text>
+            </g>
+        </g>
+
+    </g>
+
+    <!-- Decorative Elements (Subtle UI hint) -->
+    <rect x="900" y="100" width="240" height="500" rx="20" fill="#EFEDE8" opacity="0.5"/>
+    <rect x="940" y="140" width="160" height="20" rx="4" fill="#E5E2DA"/>
+    <rect x="940" y="180" width="120" height="12" rx="4" fill="#E5E2DA"/>
+    <rect x="940" y="210" width="160" height="12" rx="4" fill="#E5E2DA"/>
+</svg>

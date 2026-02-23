@@ -15,7 +15,8 @@
     "build": "electron-builder",
     "build:mac": "electron-builder --mac",
     "build:win": "electron-builder --win portable",
-    "build:all": "electron-builder --mac --win portable"
+    "build:all": "electron-builder --mac --win portable",
+    "watch:commit": "node scripts/auto-commit.js"
   },
   "keywords": [
     "writing",
