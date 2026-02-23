@@ -122,24 +122,10 @@ async function render(container) {
       }
 
       continueBtn.disabled = true;
-      continueBtn.textContent = 'Validating…';
+      continueBtn.textContent = 'Saving…';
 
       try {
-        // Validate the API key first
-        const validation = await window.scribbit.ai.validateApiKey(key, selectedProvider);
-        
-        if (!validation.valid) {
-          // Show error but allow user to proceed anyway with a confirmation
-          const proceed = confirm(`API key validation failed: ${validation.error}\n\nDo you want to save it anyway? You can change it later in Settings.`);
-          if (!proceed) {
-            continueBtn.disabled = false;
-            continueBtn.textContent = 'Save & Continue';
-            input.style.borderColor = 'var(--color-error)';
-            return;
-          }
-        }
-
-        continueBtn.textContent = 'Saving…';
+        // Save directly without validation - user can validate later in Settings
         await window.scribbit.ai.setProvider(selectedProvider);
         await window.scribbit.ai.setApiKey(key);
 
@@ -151,24 +137,9 @@ async function render(container) {
         }
       } catch (err) {
         console.error('Failed to save AI config:', err);
-        // On error, still allow saving but warn user
-        const proceed = confirm(`Could not validate API key: ${err.message}\n\nSave anyway?`);
-        if (!proceed) {
-          continueBtn.disabled = false;
-          continueBtn.textContent = 'Save & Continue';
-          return;
-        }
-        
-        continueBtn.textContent = 'Saving…';
-        await window.scribbit.ai.setProvider(selectedProvider);
-        await window.scribbit.ai.setApiKey(key);
-
-        const settings = (await window.scribbit.db.get('settings')) || {};
-        if (settings.onboardingComplete) {
-          window.scribbitRouter.navigate('home');
-        } else {
-          window.scribbitRouter.navigate('onboarding');
-        }
+        continueBtn.disabled = false;
+        continueBtn.textContent = 'Save & Continue';
+        alert('Error saving settings. Please try again. ' + err.message);
       }
     });
   }

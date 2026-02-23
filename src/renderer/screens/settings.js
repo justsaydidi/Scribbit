@@ -380,41 +380,18 @@ async function render(container) {
       if (!key) return;
 
       saveBtn.disabled = true;
-      saveBtn.textContent = 'Validating…';
+      saveBtn.textContent = 'Saving…';
 
       try {
-        // Validate the API key first
-        const validation = await window.scribbit.ai.validateApiKey(key, editProvider);
-        
-        if (!validation.valid) {
-          // Show error but allow user to proceed anyway with a confirmation
-          const proceed = confirm(`API key validation failed: ${validation.error}\n\nDo you want to save it anyway?`);
-          if (!proceed) {
-            saveBtn.disabled = false;
-            saveBtn.textContent = 'Save Changes';
-            apiInput.style.borderColor = 'var(--color-error)';
-            return;
-          }
-        }
-
-        saveBtn.textContent = 'Saving…';
+        // Save directly without validation
         await window.scribbit.ai.setProvider(editProvider);
         await window.scribbit.ai.setApiKey(key);
         window.scribbitRouter.navigate('settings'); // Refresh
       } catch (err) {
         console.error(err);
-        // On error, still allow saving but warn user
-        const proceed = confirm(`Could not validate API key: ${err.message}\n\nSave anyway?`);
-        if (!proceed) {
-          saveBtn.disabled = false;
-          saveBtn.textContent = 'Save Changes';
-          return;
-        }
-        
-        saveBtn.textContent = 'Saving…';
-        await window.scribbit.ai.setProvider(editProvider);
-        await window.scribbit.ai.setApiKey(key);
-        window.scribbitRouter.navigate('settings'); // Refresh
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save Changes';
+        alert('Error saving settings. ' + err.message);
       }
     });
 
