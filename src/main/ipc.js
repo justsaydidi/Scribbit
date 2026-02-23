@@ -14,6 +14,9 @@ module.exports = function registerIpcHandlers(db, aiModule, getMainWindow) {
     ipcMain.handle('db:set', (_event, key, value) => db.set(key, value));
     ipcMain.handle('db:delete', (_event, key) => db.delete(key));
     ipcMain.handle('db:getAll', () => db.getAll());
+    ipcMain.handle('db:createBackup', () => db.createBackup());
+    ipcMain.handle('db:restoreBackup', (_event, backupPath) => db.restoreFromBackup(backupPath));
+    ipcMain.handle('db:getBackups', () => db.getBackups());
 
     // ── AI ────────────────────────────────────────────────────────────────────
     ipcMain.handle('ai:complete', async (_event, messages, options) => {
@@ -37,6 +40,14 @@ module.exports = function registerIpcHandlers(db, aiModule, getMainWindow) {
             return aiModule.hasApiKey(db);
         } catch (err) {
             console.error('[IPC] ai:hasApiKey error:', err);
+            throw err;
+        }
+    });
+    ipcMain.handle('ai:validateApiKey', async (_event, key, provider) => {
+        try {
+            return await aiModule.validateApiKey(db, key, provider);
+        } catch (err) {
+            console.error('[IPC] ai:validateApiKey error:', err);
             throw err;
         }
     });

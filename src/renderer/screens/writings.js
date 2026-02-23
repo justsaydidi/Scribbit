@@ -95,9 +95,14 @@ async function renderLibrary(container) {
                             value="${escHtml(writingsState.searchQuery)}"
                         />
                         ${writingsState.selectedIds.size > 0 ? `
-                            <button class="writings-export-btn" id="writings-export-selected">
-                                Export ${writingsState.selectedIds.size} Selected (PDF)
-                            </button>
+                            <div style="display:flex;gap:8px;">
+                                <button class="writings-export-btn" id="writings-export-selected">
+                                    Export ${writingsState.selectedIds.size} Selected
+                                </button>
+                                <button class="writings-export-btn" id="writings-delete-selected" style="background:var(--color-error);color:white;border-color:var(--color-error);">
+                                    Delete ${writingsState.selectedIds.size} Selected
+                                </button>
+                            </div>
                         ` : ''}
                     </div>
 
@@ -268,6 +273,32 @@ function attachLibraryListeners(container) {
                 console.error('Batch export error:', err);
                 alert('Failed to export collection: ' + err.message);
                 exportBtn.textContent = 'Export Failed';
+            }
+        });
+
+        // Delete selected sessions
+        container.querySelector('#writings-delete-selected')?.addEventListener('click', async () => {
+            const selectedIds = writingsState.selectedIds;
+            if (selectedIds.size === 0) return;
+
+            const confirmDelete = window.confirm(`Are you sure you want to delete ${selectedIds.size} selected writing(s)? This cannot be undone.`);
+            if (!confirmDelete) return;
+
+            try {
+                const sessions = (await window.scribbit.db.get('sessions')) || [];
+                const filteredSessions = sessions.filter(s => !selectedIds.has(s.id));
+                await window.scribbit.db.set('sessions', filteredSessions);
+                
+                selectedIds.clear();
+                
+                // Clear pattern analysis since sessions changed
+                patternState.analysisResult = null;
+                patternState.isAnalyzing = false;
+                
+                renderLibrary(container);
+            } catch (err) {
+                console.error('Delete error:', err);
+                alert('Failed to delete: ' + err.message);
             }
         });
 

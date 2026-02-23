@@ -122,9 +122,21 @@ async function render(container) {
       }
 
       continueBtn.disabled = true;
-      continueBtn.textContent = 'Saving…';
+      continueBtn.textContent = 'Validating…';
 
       try {
+        // Validate the API key first
+        const validation = await window.scribbit.ai.validateApiKey(key, selectedProvider);
+        
+        if (!validation.valid) {
+          continueBtn.disabled = false;
+          continueBtn.textContent = 'Save & Continue';
+          input.style.borderColor = 'var(--color-error)';
+          input.placeholder = `Invalid key: ${validation.error}`;
+          return;
+        }
+
+        continueBtn.textContent = 'Saving…';
         await window.scribbit.ai.setProvider(selectedProvider);
         await window.scribbit.ai.setApiKey(key);
 
@@ -138,7 +150,7 @@ async function render(container) {
         console.error('Failed to save AI config:', err);
         continueBtn.disabled = false;
         continueBtn.textContent = 'Save & Continue';
-        alert('Error saving settings. Please try again.');
+        alert('Error saving settings. Please try again. ' + err.message);
       }
     });
   }

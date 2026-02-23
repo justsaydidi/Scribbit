@@ -191,6 +191,29 @@ async function render(container) {
             </div>
           </section>
 
+          <!-- Data Management -->
+          <section class="st-section">
+            <div class="st-section-title">Data Management</div>
+            <div class="st-card">
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <div style="font-weight:var(--font-weight-medium); color:var(--color-text-primary);">Backup Data</div>
+                    <div style="font-size:var(--font-size-xs); color:var(--color-text-muted);">Create a backup of all your writings and settings.</div>
+                  </div>
+                  <button class="st-btn-text" id="st-backup-btn" style="text-decoration:underline;">Create Backup</button>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <div style="font-weight:var(--font-weight-medium); color:var(--color-text-primary);">Restore Data</div>
+                    <div style="font-size:var(--font-size-xs); color:var(--color-text-muted);">Restore from a previous backup.</div>
+                  </div>
+                  <button class="st-btn-text" id="st-restore-btn" style="text-decoration:underline;">Restore</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <div class="st-version">
             Scribbit v${APP_VERSION}
           </div>
@@ -308,20 +331,25 @@ async function render(container) {
     });
 
     // Volume slider
+    let volumeSaveTimeout = null;
     volumeSlider?.addEventListener('input', async (e) => {
       const volume = parseInt(e.target.value);
       if (volumeValue) {
         volumeValue.textContent = `${volume}%`;
       }
 
-      const settings = (await window.scribbit.db.get('settings')) || {};
-      settings.ambientVolume = volume;
-      await window.scribbit.db.set('settings', settings);
-
-      // Update playing sound volume if currently playing
+      // Update playing sound volume immediately (real-time)
       if (window.scribbitAmbientSound && window.scribbitAmbientSound.isPlaying) {
         window.scribbitAmbientSound.setVolume(volume / 100);
       }
+
+      // Debounce the DB save to avoid lag
+      if (volumeSaveTimeout) clearTimeout(volumeSaveTimeout);
+      volumeSaveTimeout = setTimeout(async () => {
+        const settings = (await window.scribbit.db.get('settings')) || {};
+        settings.ambientVolume = volume;
+        await window.scribbit.db.set('settings', settings);
+      }, 200);
     });
 
     // API Edit toggling
@@ -352,9 +380,21 @@ async function render(container) {
       if (!key) return;
 
       saveBtn.disabled = true;
-      saveBtn.textContent = 'Saving…';
+      saveBtn.textContent = 'Validating…';
 
       try {
+        // Validate the API key first
+        const validation = await window.scribbit.ai.validateApiKey(key, editProvider);
+        
+        if (!validation.valid) {
+          saveBtn.disabled = false;
+          saveBtn.textContent = 'Save Changes';
+          apiInput.style.borderColor = 'var(--color-error)';
+          apiInput.placeholder = `Invalid key: ${validation.error}`;
+          return;
+        }
+
+        saveBtn.textContent = 'Saving…';
         await window.scribbit.ai.setProvider(editProvider);
         await window.scribbit.ai.setApiKey(key);
         window.scribbitRouter.navigate('settings'); // Refresh
@@ -362,6 +402,7 @@ async function render(container) {
         console.error(err);
         saveBtn.disabled = false;
         saveBtn.textContent = 'Save Changes';
+        alert('Error saving settings. ' + err.message);
       }
     });
 
@@ -389,6 +430,51 @@ async function render(container) {
       themeLight.classList.toggle('st-theme-btn--active', mode === 'light');
       themeDark.classList.toggle('st-theme-btn--active', mode === 'dark');
     }
+
+    // Backup functionality
+    const backupBtn = container.querySelector('#st-backup-btn');
+    backupBtn?.addEventListener('click', async () => {
+      try {
+        const backupPath = await window.scribbit.db.createBackup();
+        alert('Backup created successfully!\n\nSaved to: ' + backupPath);
+      } catch (err) {
+        console.error('Backup error:', err);
+        alert('Failed to create backup: ' + err.message);
+      }
+    });
+
+    // Restore functionality
+    const restoreBtn = container.querySelector('#st-restore-btn');
+    restoreBtn?.addEventListener('click', async () => {
+      try {
+        const backups = await window.scribbit.db.getBackups();
+        if (backups.length === 0) {
+          alert('No backups found.');
+          return;
+        }
+
+        const backupList = backups.map((b, i) => `${i + 1}. ${b.filename}\n   Created: ${new Date(b.createdAt).toLocaleString()}`).join('\n');
+        const choice = prompt('Available backups:\n\n' + backupList + '\n\nEnter the number of the backup to restore:');
+        
+        if (!choice) return;
+        
+        const idx = parseInt(choice) - 1;
+        if (isNaN(idx) || idx < 0 || idx >= backups.length) {
+          alert('Invalid selection.');
+          return;
+        }
+
+        const confirm = window.confirm('This will replace ALL current data with the backup. Are you sure?');
+        if (!confirm) return;
+
+        await window.scribbit.db.restoreBackup(backups[idx].path);
+        alert('Data restored successfully! The app will reload.');
+        window.location.reload();
+      } catch (err) {
+        console.error('Restore error:', err);
+        alert('Failed to restore: ' + err.message);
+      }
+    });
 
     backBtn.addEventListener('click', () => {
       window.scribbitRouter.navigate('home');

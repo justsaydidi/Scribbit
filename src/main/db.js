@@ -95,4 +95,53 @@ function getAll() {
     return read();
 }
 
-module.exports = { get, set, delete: del, getAll };
+/**
+ * Create a backup of the database.
+ * Returns the backup file path.
+ */
+function createBackup() {
+    const fs = require('fs');
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupPath = DB_FILE + `.backup-${timestamp}`;
+    fs.copyFileSync(DB_FILE, backupPath);
+    return backupPath;
+}
+
+/**
+ * Restore database from a backup file.
+ */
+function restoreFromBackup(backupPath) {
+    const fs = require('fs');
+    if (!fs.existsSync(backupPath)) {
+        throw new Error('Backup file not found');
+    }
+    const data = fs.readFileSync(backupPath, 'utf8');
+    const parsed = JSON.parse(data);
+    write(parsed);
+    return true;
+}
+
+/**
+ * Get list of available backups.
+ */
+function getBackups() {
+    const fs = require('fs');
+    const path = require('path');
+    const dir = path.dirname(DB_FILE);
+    const files = fs.readdirSync(dir);
+    const backups = files
+        .filter(f => f.startsWith('scribbit-db.json.backup-'))
+        .map(f => {
+            const fullPath = path.join(dir, f);
+            const stats = fs.statSync(fullPath);
+            return {
+                filename: f,
+                path: fullPath,
+                createdAt: stats.mtime.toISOString()
+            };
+        })
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return backups;
+}
+
+module.exports = { get, set, delete: del, getAll, createBackup, restoreFromBackup, getBackups };

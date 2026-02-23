@@ -59,9 +59,11 @@ function createChime() {
 
 async function saveDraft(textarea) {
     if (!sessionState) return;
+    const text = textarea.value;
     const draft = {
         ...sessionState,
-        text: textarea.value,
+        text: text,
+        wordCount: wordCount(text),
         updatedAt: new Date().toISOString(),
     };
     await window.scribbit.db.set('sessionDraft', draft);
@@ -95,6 +97,9 @@ async function autosaveSession(textarea) {
     }
     
     await window.scribbit.db.set('sessions', sessions);
+    
+    // Clear the draft since we've saved to sessions
+    await window.scribbit.db.delete('sessionDraft');
     
     const saveIndicator = document.getElementById('autosave-indicator');
     if (saveIndicator) {
@@ -256,12 +261,27 @@ async function render(container, params = {}) {
     }
 
     const sessionType = params.type || 'free';
+    const isResumingDraft = params.resumeDraft === true;
+    const draftText = params.draftText || '';
+    
+    function generateUUID() {
+        if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+            return crypto.randomUUID();
+        }
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+    
     sessionState = {
-        id: (crypto && crypto.randomUUID) ? crypto.randomUUID() : `session-${Date.now()}`,
+        id: generateUUID(),
         type: sessionType,
         prompt: sessionType === 'prompted' ? (params.prompt || DEFAULT_PROMPT) : null,
         readingMaterial: sessionType === 'respond' ? (params.readingMaterial || 'No reading material yet.') : null,
         startedAt: new Date().toISOString(),
+        isResumingDraft: isResumingDraft,
     };
 
     // Start ambient sound if configured
@@ -276,6 +296,7 @@ async function render(container, params = {}) {
     container.innerHTML = `
     <div class="writing-root">
       <div class="writing-header">
+        <button class="writing-back-btn" id="writing-back" type="button" aria-label="Back to home">←</button>
         <div class="writing-timer" id="writing-timer">30:00</div>
         <div class="autosave-indicator" id="autosave-indicator"></div>
       </div>
@@ -352,6 +373,13 @@ async function render(container, params = {}) {
         sidebar.classList.toggle('writing-sidebar--hidden', isOpen);
     });
 
+    // If resuming a draft, populate the textarea
+    if (isResumingDraft && draftText) {
+        textarea.value = draftText;
+        // Delete the draft since we're resuming it
+        await window.scribbit.db.delete('sessionDraft');
+    }
+
     textarea.focus();
 
     textarea.addEventListener('input', () => {
@@ -385,10 +413,11 @@ async function render(container, params = {}) {
     container.querySelector('#writing-save-exit').addEventListener('click', () => handleSaveExit(textarea));
     container.querySelector('#writing-keep-going').addEventListener('click', () => {
         showTimeUpBar(false);
-        // Hide the timer when continuing after time's up
+        // Show "Continuing..." instead of hiding the timer
         const timerEl = document.getElementById('writing-timer');
         if (timerEl) {
-            timerEl.style.display = 'none';
+            timerEl.textContent = 'Continuing...';
+            timerEl.style.display = 'block';
         }
     });
     container.querySelector('#writing-finish').addEventListener('click', () => handleFinish(textarea));

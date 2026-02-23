@@ -12,6 +12,9 @@ contextBridge.exposeInMainWorld('scribbit', {
         set: (key, value) => ipcRenderer.invoke('db:set', key, value),
         delete: (key) => ipcRenderer.invoke('db:delete', key),
         getAll: () => ipcRenderer.invoke('db:getAll'),
+        createBackup: () => ipcRenderer.invoke('db:createBackup'),
+        restoreBackup: (path) => ipcRenderer.invoke('db:restoreBackup', path),
+        getBackups: () => ipcRenderer.invoke('db:getBackups'),
     },
 
     // ── AI ────────────────────────────────────────────────────────────────────
@@ -21,6 +24,7 @@ contextBridge.exposeInMainWorld('scribbit', {
         hasApiKey: () => ipcRenderer.invoke('ai:hasApiKey'),
         getProvider: () => ipcRenderer.invoke('ai:getProvider'),
         setProvider: (provider) => ipcRenderer.invoke('ai:setProvider', provider),
+        validateApiKey: (key, provider) => ipcRenderer.invoke('ai:validateApiKey', key, provider),
     },
 
     // ── Theme ─────────────────────────────────────────────────────────────────

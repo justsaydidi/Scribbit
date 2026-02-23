@@ -226,7 +226,64 @@ async function completeMistral(apiKey, messages, options) {
  * Check whether an API key has been saved.
  */
 function hasApiKey(db) {
-    return Boolean(db.get('scribbit_api_key'));
+    const key = db.get('scribbit_api_key');
+    return Boolean(key && key !== 'demo');
+}
+
+/**
+ * Validate an API key by making a test request.
+ */
+async function validateApiKey(db, key, provider) {
+    const config = PROVIDERS[provider];
+    if (!config) throw new Error(`Invalid provider: ${provider}`);
+    
+    try {
+        switch (provider) {
+            case 'gemini': {
+                const { GoogleGenerativeAI } = await import('@google/generative-ai');
+                const genAI = new GoogleGenerativeAI(key);
+                const model = genAI.getGenerativeModel({ model: config.model });
+                await model.generateContent('test');
+                return { valid: true };
+            }
+            case 'anthropic': {
+                const { Anthropic } = await import('@anthropic-ai/sdk');
+                const client = new Anthropic({ apiKey: key });
+                await client.messages.create({
+                    model: config.model,
+                    max_tokens: 10,
+                    messages: [{ role: 'user', content: 'hi' }]
+                });
+                return { valid: true };
+            }
+            case 'openai': {
+                const { OpenAI } = await import('openai');
+                const client = new OpenAI({ apiKey: key });
+                await client.chat.completions.create({
+                    model: config.model,
+                    messages: [{ role: 'user', content: 'hi' }]
+                });
+                return { valid: true };
+            }
+            case 'mistral': {
+                const { Mistral } = await import('@mistralai/mistralai');
+                const client = new Mistral({ apiKey: key });
+                await client.chat.complete({
+                    model: config.model,
+                    messages: [{ role: 'user', content: 'hi' }]
+                });
+                return { valid: true };
+            }
+            default:
+                return { valid: false, error: 'Unknown provider' };
+        }
+    } catch (err) {
+        console.error('[AI] Validation error:', err);
+        return { 
+            valid: false, 
+            error: err.message || 'Validation failed' 
+        };
+    }
 }
 
 /**
@@ -236,4 +293,4 @@ function setApiKey(db, key) {
     db.set('scribbit_api_key', key);
 }
 
-module.exports = { complete, setApiKey, hasApiKey, getProvider, setProvider };
+module.exports = { complete, setApiKey, hasApiKey, validateApiKey, getProvider, setProvider };
