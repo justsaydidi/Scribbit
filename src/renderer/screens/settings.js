@@ -387,11 +387,14 @@ async function render(container) {
         const validation = await window.scribbit.ai.validateApiKey(key, editProvider);
         
         if (!validation.valid) {
-          saveBtn.disabled = false;
-          saveBtn.textContent = 'Save Changes';
-          apiInput.style.borderColor = 'var(--color-error)';
-          apiInput.placeholder = `Invalid key: ${validation.error}`;
-          return;
+          // Show error but allow user to proceed anyway with a confirmation
+          const proceed = confirm(`API key validation failed: ${validation.error}\n\nDo you want to save it anyway?`);
+          if (!proceed) {
+            saveBtn.disabled = false;
+            saveBtn.textContent = 'Save Changes';
+            apiInput.style.borderColor = 'var(--color-error)';
+            return;
+          }
         }
 
         saveBtn.textContent = 'Saving…';
@@ -400,9 +403,18 @@ async function render(container) {
         window.scribbitRouter.navigate('settings'); // Refresh
       } catch (err) {
         console.error(err);
-        saveBtn.disabled = false;
-        saveBtn.textContent = 'Save Changes';
-        alert('Error saving settings. ' + err.message);
+        // On error, still allow saving but warn user
+        const proceed = confirm(`Could not validate API key: ${err.message}\n\nSave anyway?`);
+        if (!proceed) {
+          saveBtn.disabled = false;
+          saveBtn.textContent = 'Save Changes';
+          return;
+        }
+        
+        saveBtn.textContent = 'Saving…';
+        await window.scribbit.ai.setProvider(editProvider);
+        await window.scribbit.ai.setApiKey(key);
+        window.scribbitRouter.navigate('settings'); // Refresh
       }
     });
 

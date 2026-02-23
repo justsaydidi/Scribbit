@@ -237,41 +237,46 @@ async function validateApiKey(db, key, provider) {
     const config = PROVIDERS[provider];
     if (!config) throw new Error(`Invalid provider: ${provider}`);
     
+    // Add timeout to prevent hanging
+    const timeout = (ms) => new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Validation timed out')), ms)
+    );
+    
     try {
         switch (provider) {
             case 'gemini': {
-                const { GoogleGenerativeAI } = await import('@google/generative-ai');
+                const { GoogleGenerativeAI } = require('@google/generative-ai');
                 const genAI = new GoogleGenerativeAI(key);
                 const model = genAI.getGenerativeModel({ model: config.model });
-                await model.generateContent('test');
+                await Promise.race([model.generateContent('test'), timeout(10000)]);
                 return { valid: true };
             }
             case 'anthropic': {
-                const { Anthropic } = await import('@anthropic-ai/sdk');
+                const { Anthropic } = require('@anthropic-ai/sdk');
                 const client = new Anthropic({ apiKey: key });
-                await client.messages.create({
+                await Promise.race([client.messages.create({
                     model: config.model,
                     max_tokens: 10,
                     messages: [{ role: 'user', content: 'hi' }]
-                });
+                }), timeout(10000)]);
                 return { valid: true };
             }
             case 'openai': {
-                const { OpenAI } = await import('openai');
+                const { OpenAI } = require('openai');
                 const client = new OpenAI({ apiKey: key });
-                await client.chat.completions.create({
+                await Promise.race([client.chat.completions.create({
                     model: config.model,
                     messages: [{ role: 'user', content: 'hi' }]
-                });
+                }), timeout(10000)]);
                 return { valid: true };
             }
             case 'mistral': {
-                const { Mistral } = await import('@mistralai/mistralai');
+                const { Mistral } = require('@mistralai/mistralai');
                 const client = new Mistral({ apiKey: key });
-                await client.chat.complete({
+                await Promise.race([client.chat.complete({
                     model: config.model,
                     messages: [{ role: 'user', content: 'hi' }]
-                });
+                }), timeout(10000)]);
                 return { valid: true };
             }
             default:
