@@ -23,6 +23,8 @@ async function render(container, params = {}) {
     <div class="ps-root">
       <div class="ps-container">
         <header class="ps-header">
+          <button class="ps-back-btn" id="ps-back" style="position:absolute;top:20px;left:20px;background:none;border:none;font-size:24px;cursor:pointer;">←</button>
+          <button class="ps-home-btn" id="ps-home" style="position:absolute;top:20px;right:20px;background:none;border:none;font-size:24px;cursor:pointer;">🏠</button>
           <div class="ps-title">Session complete.</div>
           <div class="ps-wordcount">You wrote ${session.wordCount} words.</div>
         </header>
@@ -161,6 +163,16 @@ async function render(container, params = {}) {
     });
 
     newBtn.addEventListener('click', () => {
+        window.scribbitRouter.navigate('home');
+    });
+
+    const backBtn = container.querySelector('#ps-back');
+    backBtn?.addEventListener('click', () => {
+        window.scribbitRouter.navigate('writings');
+    });
+
+    const homeBtn = container.querySelector('#ps-home');
+    homeBtn?.addEventListener('click', () => {
         window.scribbitRouter.navigate('home');
     });
 }

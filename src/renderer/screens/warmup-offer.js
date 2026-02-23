@@ -9,6 +9,7 @@ async function render(container, params = {}) {
   container.innerHTML = `
     <div class="wo-root">
       <div class="wo-container">
+        <button class="wo-back-btn" id="wo-back" style="position:absolute;top:20px;left:20px;background:none;border:none;font-size:24px;cursor:pointer;">←</button>
         <div class="wo-icon">🧘‍♂️</div>
         <h1 class="wo-title">Want to warm up first?</h1>
         <p class="wo-text">
@@ -30,6 +31,10 @@ async function render(container, params = {}) {
 
   container.querySelector('#wo-skip').addEventListener('click', () => {
     window.scribbitRouter.navigate(nextScreen, nextParams);
+  });
+
+  container.querySelector('#wo-back')?.addEventListener('click', () => {
+    window.scribbitRouter.navigate('home');
   });
 }
 

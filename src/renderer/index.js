@@ -116,7 +116,10 @@ window.addEventListener('load', async function init() {
     }
 
     try {
-        const hasKey = await window.scribbit.ai.hasApiKey();
+        // Check for API key more robustly
+        const apiKey = await window.scribbit.db.get('scribbit_api_key');
+        const hasKey = apiKey && apiKey.trim().length > 0;
+        
         if (!hasKey) {
             window.scribbitRouter.navigate('api-setup');
             return;

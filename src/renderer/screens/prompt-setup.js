@@ -19,11 +19,16 @@ async function render(container, params = {}) {
 
   async function generate() {
     psuContainer.innerHTML = `
+      <button class="psu-back-btn" id="psu-back" style="position:absolute;top:20px;left:20px;background:none;border:none;font-size:24px;cursor:pointer;z-index:10;">←</button>
       <div class="psu-loading">
         <div class="psu-pulse"></div>
         <div class="psu-loading-text">Generating your prompt…</div>
       </div>
     `;
+    
+    psuContainer.querySelector('#psu-back')?.addEventListener('click', () => {
+      window.scribbitRouter.navigate('home');
+    });
 
     try {
       const profile = (await window.scribbit.db.get('profile')) || {};
@@ -81,6 +86,7 @@ Rules:
 
     function updateInner() {
       psuContainer.innerHTML = `
+        <button class="psu-back-btn" id="psu-back" style="position:absolute;top:20px;left:20px;background:none;border:none;font-size:24px;cursor:pointer;z-index:10;">←</button>
         <div class="psu-prompt-view">
           <div class="psu-prompt-box">
             <div class="psu-prompt-text">"${promptText}"</div>
@@ -94,6 +100,10 @@ Rules:
           </div>
         </div>
       `;
+      
+      psuContainer.querySelector('#psu-back')?.addEventListener('click', () => {
+        window.scribbitRouter.navigate('home');
+      });
 
       psuContainer.querySelector('#psu-start').addEventListener('click', async () => {
         // Record as used
